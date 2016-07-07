@@ -1,5 +1,5 @@
 <div class="products form form-group">
-<?php echo $this->Form->create('Product', array('url' => 'edit')); ?>
+<?php echo $this->Form->create('Product'); ?>
 	<fieldset>
 		<legend><?php echo __('Editar Produto'); ?></legend>
 	<?php

@@ -1,5 +1,5 @@
 <div class="users form form-group">
-<?php echo $this->Form->create('User', array('url' => 'edit')); ?>
+<?php echo $this->Form->create('User'); ?>
 	<fieldset>
 		<legend><?php echo __('Editar Usuário'); ?></legend>
 	<?php

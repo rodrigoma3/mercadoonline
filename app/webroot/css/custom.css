@@ -30,6 +30,14 @@ div.actions a, input[type=submit]{
 dd{
 	background-color: #f9f9f9;
 }
+.div-centered {
+    width: 500px;
+    display: block;
+    margin-left: 25%;
+}
+.input-group-btn button{
+    border: 1px solid transparent !important;
+}
 
 /* SQL log */
 .cake-sql-log {

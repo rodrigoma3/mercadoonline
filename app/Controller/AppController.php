@@ -34,6 +34,7 @@ App::uses('CakeEmail', 'Network/Email');
 class AppController extends Controller {
     public $components = array(
         'Session',
+        'Paginator',
         'Flash',
         'Auth' => array(
             'loginRedirect' => array(
@@ -52,6 +53,12 @@ class AppController extends Controller {
                 'action' => 'login',
             ),
             'authError' => 'Você não está autorizado a acessar esse local.',
+            'flash' => array(
+                'params' => array(
+                    'class' => 'alert alert-danger',
+                ),
+                'element' => 'auth',
+            ),
             'authenticate' => array(
                 'Form' => array(
                     'passwordHasher' => 'Blowfish'

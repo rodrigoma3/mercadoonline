@@ -1,5 +1,5 @@
 <div class="categories form form-group">
-<?php echo $this->Form->create('Category', array('url' => 'add')); ?>
+<?php echo $this->Form->create('Category'); ?>
 	<fieldset>
 		<legend><?php echo __('Adicionar Categoria'); ?></legend>
 	<?php

@@ -1,5 +1,5 @@
 <div class="manufacturers form form-group">
-<?php echo $this->Form->create('Manufacturer', array('url' => 'add')); ?>
+<?php echo $this->Form->create('Manufacturer'); ?>
 	<fieldset>
 		<legend><?php echo __('Adicionar Fabricante'); ?></legend>
 	<?php

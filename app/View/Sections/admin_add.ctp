@@ -1,5 +1,5 @@
 <div class="sections form form-group">
-<?php echo $this->Form->create('Section', array('url' => 'add')); ?>
+<?php echo $this->Form->create('Section'); ?>
 	<fieldset>
 		<legend><?php echo __('Adicionar Seção'); ?></legend>
 	<?php

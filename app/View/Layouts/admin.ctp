@@ -141,7 +141,7 @@
 		echo $this->Html->script('price-range');
 		echo $this->Html->script('/datatable/1.10.12/js/jquery.dataTables');
 		echo $this->Html->script('/datatable/1.10.12/js/dataTables.bootstrap');
-		echo $this->Html->script('/datatable/custom');
+		echo $this->Html->script('custom');
 
 		echo $this->fetch('script');
 	?>

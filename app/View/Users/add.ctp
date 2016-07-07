@@ -1,26 +1,17 @@
-<div class="users form">
+<div class="users form form-group div-centered">
 <?php echo $this->Form->create('User'); ?>
 	<fieldset>
-		<legend><?php echo __('Add User'); ?></legend>
+		<legend><?php echo __('Cadastro de Cliente'); ?></legend>
 	<?php
-		echo $this->Form->input('name');
-		echo $this->Form->input('username');
-		echo $this->Form->input('cpf');
-		echo $this->Form->input('email');
-		echo $this->Form->input('password');
-		echo $this->Form->input('role_id');
+	echo $this->Form->input('name', array('label' => 'Nome', 'class' => 'form-control'));
+	echo $this->Form->input('username', array('label' => 'Usuário', 'class' => 'form-control'));
+	echo $this->Form->input('cpf', array('label' => 'CPF', 'class' => 'form-control'));
+	echo $this->Form->input('email', array('label' => 'Email', 'class' => 'form-control'));
+	echo $this->Form->input('password', array('label' => 'Senha', 'class' => 'form-control'));
+	echo $this->Form->input('confirmPassword', array('label' => 'Confirme a Senha', 'type' => 'password', 'class' => 'form-control'));
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
 </div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Addresses'), array('controller' => 'addresses', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Address'), array('controller' => 'addresses', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Orders'), array('controller' => 'orders', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Order'), array('controller' => 'orders', 'action' => 'add')); ?> </li>
-	</ul>
+<div class="actions div-centered">
+	<?php echo $this->Form->end(array('label' => 'Salvar', 'div' => false)); ?>
 </div>

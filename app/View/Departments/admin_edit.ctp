@@ -1,5 +1,5 @@
 <div class="departments form form-group">
-<?php echo $this->Form->create('Department', array('url' => 'edit')); ?>
+<?php echo $this->Form->create('Department'); ?>
 	<fieldset>
 		<legend><?php echo __('Editar Departamento'); ?></legend>
 	<?php

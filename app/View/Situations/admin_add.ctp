@@ -1,5 +1,5 @@
 <div class="situations form form-group">
-<?php echo $this->Form->create('Situation', array('url' => 'add')); ?>
+<?php echo $this->Form->create('Situation'); ?>
 	<fieldset>
 		<legend><?php echo __('Adicionar Situação'); ?></legend>
 	<?php

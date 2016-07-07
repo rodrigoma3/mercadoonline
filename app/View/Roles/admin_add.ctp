@@ -1,5 +1,5 @@
 <div class="roles form form-group">
-<?php echo $this->Form->create('Role', array('url' => 'add')); ?>
+<?php echo $this->Form->create('Role'); ?>
 	<fieldset>
 		<legend><?php echo __('Adicionar Função'); ?></legend>
 	<?php

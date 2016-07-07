@@ -9,7 +9,15 @@
 		echo $this->Html->meta('icon');
 
 		// echo $this->Html->css('cake.generic');
-		echo $this->Html->css(array('animate', 'bootstrap.min', 'font-awesome.min', 'prettyPhoto', 'price-range', 'main', 'responsive'));
+		echo $this->Html->css('custom');
+		echo $this->Html->css('animate');
+		echo $this->Html->css('bootstrap.min');
+		echo $this->Html->css('font-awesome');
+		echo $this->Html->css('prettyPhoto');
+		echo $this->Html->css('price-range');
+		echo $this->Html->css('main');
+		echo $this->Html->css('responsive');
+		echo $this->Html->css('/datatable/1.10.12/css/dataTables.bootstrap');
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
@@ -80,7 +88,7 @@
 			<div class="header-bottom"><!--header-bottom-->
 				<div class="container">
 					<div class="row">
-						<div class="col-sm-9">
+						<div class="col-sm-6">
 							<div class="navbar-header">
 								<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 									<span class="sr-only">Toggle navigation</span>
@@ -119,9 +127,14 @@
 								</ul>
 							</div>
 						</div>
-						<div class="col-sm-3">
-							<div class="search_box pull-right">
-								<input type="text" placeholder="Search"/>
+						<div class="col-sm-6 form-group">
+							<?php echo $this->Form->create('Product', array('url' => '/products', 'type' => 'get')); ?>
+							<div class="search_box pull-right input-group">
+								<?php echo $this->Form->input('q', array('label' => false, 'class' => 'form-control', 'placeholder' => 'Buscar')); ?>
+								<span class="input-group-btn">
+									<?php echo $this->Form->button('<i class="fa fa-search"></i>', array('type' => 'submit', 'class' => 'btn btn-default')); ?>
+									<?php echo $this->Form->end(null); ?>
+						    	</span>
 							</div>
 						</div>
 					</div>
@@ -130,10 +143,15 @@
 		</header><!--/header-->
 
 		<div id="content">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12">
+						<?php echo $this->Flash->render(); ?>
 
-			<?php echo $this->Flash->render(); ?>
-
-			<?php echo $this->fetch('content'); ?>
+						<?php echo $this->fetch('content'); ?>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<footer id="footer"><!--Footer-->
@@ -220,7 +238,17 @@
 		</footer><!--/Footer-->
 	</div>
 	<?php
-		echo $this->Html->script(array('jquery', 'bootstrap.min', 'contact', 'gmaps', 'html5shiv', 'jquery.prettyPhoto', 'jquery.scrollUp.min', 'main', 'price-range'));
+		echo $this->Html->script('jquery');
+		echo $this->Html->script('bootstrap.min');
+		echo $this->Html->script('html5shiv');
+		echo $this->Html->script('jquery.prettyPhoto');
+		echo $this->Html->script('jquery.scrollUp.min');
+		echo $this->Html->script('main');
+		echo $this->Html->script('price-range');
+		echo $this->Html->script('/datatable/1.10.12/js/jquery.dataTables');
+		echo $this->Html->script('/datatable/1.10.12/js/dataTables.bootstrap');
+		echo $this->Html->script('custom');
+
 		echo $this->fetch('script');
 	?>
 	<?php echo $this->element('sql_dump'); ?>

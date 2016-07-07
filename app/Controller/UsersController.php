@@ -23,7 +23,6 @@ class UsersController extends AppController {
 						return false;
 					}
 					break;
-		        case 'add':
 		        case 'delete':
 					if (in_array($user['role_id'], array('3'))) {
 						return true;
@@ -44,6 +43,7 @@ class UsersController extends AppController {
 
 	public function beforeFilter() {
 		parent::beforeFilter();
+		$this->Auth->allow('add');
 	}
 
 	public function login() {
@@ -96,7 +96,12 @@ class UsersController extends AppController {
  * @return void
  */
 	public function add() {
-		if ($this->request->is('post')) {
+		if($this->request->is('ajax')){
+			$this->autoRender = false;
+			$options = array('OR' => array('cpf' => $this->request->query('cpf'), 'email' => $this->request->query('email')), 'role_id' => '3');
+			return $this->User->find('count', array('conditions' => $options));
+		} elseif ($this->request->is('post')) {
+			$this->request->data[$this->User->name]['role_id'] = '3';
 			$this->User->create();
 			if ($this->User->save($this->request->data)) {
 				$this->Flash->success(__('The user has been saved.'));

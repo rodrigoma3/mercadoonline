@@ -1,5 +1,5 @@
 <div class="categories form form-group">
-<?php echo $this->Form->create('Category', array('url' => 'edit')); ?>
+<?php echo $this->Form->create('Category'); ?>
 	<fieldset>
 		<legend><?php echo __('Editar Categoria'); ?></legend>
 	<?php
