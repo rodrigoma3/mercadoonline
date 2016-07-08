@@ -46,4 +46,5 @@ Network Trash Folder
 Temporary Items
 .apdisk
 app/tmp/*
-app/tmp/cache/models/*
+app/tmp/cache/models/empty
+app/tmp/cache/models/empty
