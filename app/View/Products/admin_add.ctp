@@ -7,7 +7,7 @@
 		echo $this->Form->input('description', array('label' => 'Descrição', 'class' => 'form-control'));
 		echo $this->Form->input('manufacturer_id', array('label' => 'Fabricante', 'class' => 'form-control'));
 		echo $this->Form->input('category_id', array('label' => 'Categoria', 'class' => 'form-control'));
-		echo $this->Form->input('stock', array('label' => 'Estoque', 'class' => 'form-control'));
+		echo $this->Form->input('stock', array('label' => 'Estoque', 'class' => 'form-control', 'min' => '0'));
 		echo $this->Form->input('price', array('label' => 'Preço', 'step' => '0.01', 'min' => '0', 'class' => 'form-control'));
 		echo $this->Form->input('promotion_price', array('label' => 'Preço Promocional', 'step' => '0.01', 'min' => '0', 'class' => 'form-control'));
 	?>

@@ -27,141 +27,93 @@ class User extends AppModel {
 		return true;
 	}
 
+	public function beforeValidate($options = array()){
+		parent::beforeValidate($options);
+
+		$this->validate['role_id']['inList']['rule'][1] = array_keys($this->Role->find('list'));
+	}
+
 /**
  * Validation rules
  *
  * @var array
  */
-	// public $validate = array(
-	// 	'name' => array(
-	// 		'alphaNumeric' => array(
-	// 			'rule' => array('alphaNumeric'),
-	// 			//'message' => 'Your custom message here',
-	// 			//'allowEmpty' => false,
-	// 			//'required' => false,
-	// 			//'last' => false, // Stop validation after this rule
-	// 			//'on' => 'create', // Limit validation to 'create' or 'update' operations
-	// 		),
-	// 		'notBlank' => array(
-	// 			'rule' => array('notBlank'),
-	// 			//'message' => 'Your custom message here',
-	// 			//'allowEmpty' => false,
-	// 			//'required' => false,
-	// 			//'last' => false, // Stop validation after this rule
-	// 			//'on' => 'create', // Limit validation to 'create' or 'update' operations
-	// 		),
-	// 	),
-	// 	'username' => array(
-	// 		'custom' => array(
-	// 			'rule' => array('custom'),
-	// 			//'message' => 'Your custom message here',
-	// 			//'allowEmpty' => false,
-	// 			//'required' => false,
-	// 			//'last' => false, // Stop validation after this rule
-	// 			//'on' => 'create', // Limit validation to 'create' or 'update' operations
-	// 		),
-	// 		'notBlank' => array(
-	// 			'rule' => array('notBlank'),
-	// 			//'message' => 'Your custom message here',
-	// 			//'allowEmpty' => false,
-	// 			//'required' => false,
-	// 			//'last' => false, // Stop validation after this rule
-	// 			//'on' => 'create', // Limit validation to 'create' or 'update' operations
-	// 		),
-	// 	),
-	// 	'cpf' => array(
-	// 		'naturalNumber' => array(
-	// 			'rule' => array('naturalNumber'),
-	// 			//'message' => 'Your custom message here',
-	// 			//'allowEmpty' => false,
-	// 			//'required' => false,
-	// 			//'last' => false, // Stop validation after this rule
-	// 			//'on' => 'create', // Limit validation to 'create' or 'update' operations
-	// 		),
-	// 		'notBlank' => array(
-	// 			'rule' => array('notBlank'),
-	// 			//'message' => 'Your custom message here',
-	// 			//'allowEmpty' => false,
-	// 			//'required' => false,
-	// 			//'last' => false, // Stop validation after this rule
-	// 			//'on' => 'create', // Limit validation to 'create' or 'update' operations
-	// 		),
-	// 	),
-	// 	'email' => array(
-	// 		'email' => array(
-	// 			'rule' => array('email'),
-	// 			//'message' => 'Your custom message here',
-	// 			//'allowEmpty' => false,
-	// 			//'required' => false,
-	// 			//'last' => false, // Stop validation after this rule
-	// 			//'on' => 'create', // Limit validation to 'create' or 'update' operations
-	// 		),
-	// 		'notBlank' => array(
-	// 			'rule' => array('notBlank'),
-	// 			//'message' => 'Your custom message here',
-	// 			//'allowEmpty' => false,
-	// 			//'required' => false,
-	// 			//'last' => false, // Stop validation after this rule
-	// 			//'on' => 'create', // Limit validation to 'create' or 'update' operations
-	// 		),
-	// 	),
-	// 	'password' => array(
-	// 		'alphaNumeric' => array(
-	// 			'rule' => array('alphaNumeric'),
-	// 			//'message' => 'Your custom message here',
-	// 			//'allowEmpty' => false,
-	// 			//'required' => false,
-	// 			//'last' => false, // Stop validation after this rule
-	// 			//'on' => 'create', // Limit validation to 'create' or 'update' operations
-	// 		),
-	// 		'minLength' => array(
-	// 			'rule' => array('minLength'),
-	// 			//'message' => 'Your custom message here',
-	// 			//'allowEmpty' => false,
-	// 			//'required' => false,
-	// 			//'last' => false, // Stop validation after this rule
-	// 			//'on' => 'create', // Limit validation to 'create' or 'update' operations
-	// 		),
-	// 		'notBlank' => array(
-	// 			'rule' => array('notBlank'),
-	// 			//'message' => 'Your custom message here',
-	// 			//'allowEmpty' => false,
-	// 			//'required' => false,
-	// 			//'last' => false, // Stop validation after this rule
-	// 			//'on' => 'create', // Limit validation to 'create' or 'update' operations
-	// 		),
-	// 	),
-	// 	'user_id' => array(
-	// 		'inList' => array(
-	// 			'rule' => array('inList'),
-	// 			//'message' => 'Your custom message here',
-	// 			//'allowEmpty' => false,
-	// 			//'required' => false,
-	// 			//'last' => false, // Stop validation after this rule
-	// 			//'on' => 'create', // Limit validation to 'create' or 'update' operations
-	// 		),
-	// 	),
-	// 	'last_login' => array(
-	// 		'datetime' => array(
-	// 			'rule' => array('datetime'),
-	// 			//'message' => 'Your custom message here',
-	// 			//'allowEmpty' => false,
-	// 			//'required' => false,
-	// 			//'last' => false, // Stop validation after this rule
-	// 			//'on' => 'create', // Limit validation to 'create' or 'update' operations
-	// 		),
-	// 	),
-	// 	'isRemoved' => array(
-	// 		'boolean' => array(
-	// 			'rule' => array('boolean'),
-	// 			//'message' => 'Your custom message here',
-	// 			//'allowEmpty' => false,
-	// 			//'required' => false,
-	// 			//'last' => false, // Stop validation after this rule
-	// 			//'on' => 'create', // Limit validation to 'create' or 'update' operations
-	// 		),
-	// 	),
-	// );
+	public $validate = array(
+		'name' => array(
+			'length' => array(
+				'rule'    => array('minLength', 3),
+				'message' => 'É necessário possuir ao menos 3 caracteres'
+			),
+			'unique' => array(
+				'rule'    => 'isUnique',
+				'message' => 'Nome de usuário já registrado!'
+			),
+		),
+		'username' => array(
+			'length' => array(
+				'rule'    => array('minLength', 3),
+				'message' => 'É necessário possuir ao menos 3 caracteres'
+			),
+			'unique' => array(
+				'rule'    => 'isUnique',
+				'message' => 'Nome de usuário já registrado!'
+			),
+			'simplechars' => array(
+				'rule'    => '/^[a-z0-9_\.]{3,}$/i',
+				'message' => 'Apenas caracteres simples, números, underline "_"  e ponto "."'
+			),
+		),
+		'cpf' => array(
+			'custom' => array(
+				'rule' => array('custom'),
+				'message' => 'CPF inválido',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'email' => array(
+			'email' => array(
+				'rule' => array('email'),
+				'message' => 'Insira um e-mail válido',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'password' => array(
+			'length' => array(
+				'rule'    => array('minLength', 3),
+				'message' => 'É necessário possuir ao menos 3 caracteres'
+			),
+			'equalTo' => array(
+				'rule'    => array('equalTo', 'password'),
+				'message' => 'As senhas não conferem'
+			),
+		),
+		'role_id' => array(
+			'inList' => array(
+				'rule' => array('inList', array()),
+				'message' => 'Escolha uma das opções disponíveis',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'isRemoved' => array(
+			'boolean' => array(
+				'rule' => array('boolean'),
+				'message' => 'Por favor, utilize a caixa de seleção',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+	);
 
 	// The Associations below have been created with all possible keys, those that are not needed can be removed
 

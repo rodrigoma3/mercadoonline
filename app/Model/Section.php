@@ -15,6 +15,12 @@ class Section extends AppModel {
  */
 	public $displayField = 'name';
 
+	public function beforeValidate($options = array()){
+		parent::beforeValidate($options);
+
+		$this->validate['department_id']['inList']['rule'][1] = array_keys($this->Department->find('list'));
+	}
+
 /**
  * Validation rules
  *
@@ -22,45 +28,21 @@ class Section extends AppModel {
  */
 	public $validate = array(
 		'name' => array(
-			'alphaNumeric' => array(
-				'rule' => array('alphaNumeric'),
-				//'message' => 'Your custom message here',
+			'length' => array(
+				'rule'    => array('minLength', 3),
+				'message' => 'É necessário possuir ao menos 3 caracteres',
 				//'allowEmpty' => false,
 				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-			'notBlank' => array(
-				'rule' => array('notBlank'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'description' => array(
-			'alphaNumeric' => array(
-				'rule' => array('alphaNumeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			'unique' => array(
+				'rule'    => 'isUnique',
+				'message' => 'Valor já registrado!',
 			),
 		),
 		'department_id' => array(
 			'inList' => array(
-				'rule' => array('inList'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-			'naturalNumber' => array(
-				'rule' => array('naturalNumber'),
-				//'message' => 'Your custom message here',
+				'rule' => array('inList', array()),
+				'message' => 'Escolha uma das opções disponíveis',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
