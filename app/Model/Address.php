@@ -7,26 +7,17 @@ App::uses('AppModel', 'Model');
  */
 class Address extends AppModel {
 
+
 /**
  * Validation rules
  *
  * @var array
  */
 	public $validate = array(
-		'user_id' => array(
-			'inList' => array(
-				'rule' => array('inList'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
 		'cep' => array(
 			'lengthBetween' => array(
-				'rule' => array('lengthBetween'),
-				//'message' => 'Your custom message here',
+				'rule' => array('lengthBetween', 8, 8),
+				'message' => 'CEP possui 8 números, insira apenas os números',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -34,15 +25,7 @@ class Address extends AppModel {
 			),
 			'naturalNumber' => array(
 				'rule' => array('naturalNumber'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-			'postal' => array(
-				'rule' => array('postal'),
-				//'message' => 'Your custom message here',
+				'message' => 'Apenas números',
 				//'allowEmpty' => false,
 				//'required' => false,
 				//'last' => false, // Stop validation after this rule
@@ -50,67 +33,35 @@ class Address extends AppModel {
 			),
 		),
 		'address' => array(
-			'notBlank' => array(
-				'rule' => array('notBlank'),
-				//'message' => 'Your custom message here',
+			'length' => array(
+				'rule'    => array('minLength', 3),
+				'message' => 'É necessário possuir ao menos 3 caracteres',
 				//'allowEmpty' => false,
 				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'neighborhood' => array(
-			'alphaNumeric' => array(
-				'rule' => array('alphaNumeric'),
-				//'message' => 'Your custom message here',
+			'length' => array(
+				'rule'    => array('minLength', 3),
+				'message' => 'É necessário possuir ao menos 3 caracteres',
 				//'allowEmpty' => false,
 				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-			'notBlank' => array(
-				'rule' => array('notBlank'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'city' => array(
-			'alphaNumeric' => array(
-				'rule' => array('alphaNumeric'),
-				//'message' => 'Your custom message here',
+			'length' => array(
+				'rule'    => array('minLength', 3),
+				'message' => 'É necessário possuir ao menos 3 caracteres',
 				//'allowEmpty' => false,
 				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-			'notBlank' => array(
-				'rule' => array('notBlank'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'state' => array(
-			'alphaNumeric' => array(
-				'rule' => array('alphaNumeric'),
-				//'message' => 'Your custom message here',
+			'lengthBetween' => array(
+				'rule'    => array('lengthBetween', 2, 2),
+				'message' => 'Digite o Estado com 2 caracteres',
 				//'allowEmpty' => false,
 				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-			'notBlank' => array(
-				'rule' => array('notBlank'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 	);

@@ -21,6 +21,8 @@
 
 App::uses('Controller', 'Controller');
 App::uses('CakeEmail', 'Network/Email');
+App::uses('HttpSocket', 'Network/Http');
+App::uses('Xml', 'Utility');
 
 /**
  * Application Controller
@@ -88,5 +90,40 @@ class AppController extends Controller {
         // }else{
             return false;
         // }
+    }
+
+    public function calculateDistance($options) {
+		$HttpSocket = new HttpSocket();
+		$result = $HttpSocket->get('http://maps.googleapis.com/maps/api/distancematrix/xml', array('origins' => $options['from'], 'destinations' => $options['to'], 'language' => 'pt-BR'));
+        $r = Xml::toArray(Xml::build($result->body));
+        $distance = $r['DistanceMatrixResponse'];
+        $distance['deliver'] = false;
+        switch ($distance['status']) {
+            case 'OK':
+                switch ($distance['row']['element']['status']) {
+                    case 'OK':
+                        if ((int) $distance['row']['element']['distance']['value'] <= 3000) {
+                            $this->Flash->success(__('Endereço dentro da área de entrega'));
+                            $distance['deliver'] = true;
+                        } else {
+                            $this->Flash->error(__('Endereço fora da área de entrega'));
+                        }
+                        break;
+                    case 'NOT_FOUND':
+                        $this->Flash->error(__('Endereço não encontrado'));
+                        break;
+                    case 'ZERO_RESULTS':
+                        $this->Flash->error(__('Endereço fora da área de entrega'));
+                        break;
+                    default:
+                        $this->Flash->warning(__('Houve uma falha ao processar seu pedido. Por favor, tente novamente e se o problema persistir contate o administrador.'));
+                        break;
+                }
+                break;
+            default:
+                $this->Flash->warning(__('Houve uma falha ao processar seu pedido. Por favor, tente novamente e se o problema persistir contate o administrador.'));
+                break;
+        }
+        return $distance;
     }
 }

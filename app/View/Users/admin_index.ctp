@@ -29,6 +29,8 @@
 					<?php echo $this->Html->link('<i class="fa fa-pencil"></i>', array('action' => 'edit', $user['User']['id']), array('escape' => false, 'title' => 'editar')); ?>
 					&nbsp;
 					<?php echo $this->Form->postLink('<i class="fa fa-trash"></i>', array('action' => 'delete', $user['User']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $user['User']['id']), 'escape' => false, 'title' => 'deletar')); ?>
+					&nbsp;
+					<?php echo $this->Html->link('<i class="fa fa-key"></i>', array('action' => 'changePassword', $user['User']['id']), array('escape' => false, 'title' => 'trocar senha')); ?>
 				</td>
 			</tr>
 			<?php endforeach; ?>

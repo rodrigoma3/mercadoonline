@@ -139,4 +139,18 @@ class Product extends AppModel {
 		)
 	);
 
+	public function bestSellers($options = array()) {
+		$query = 'SELECT Product.*, Manufacturer.*
+				FROM products as Product
+				LEFT JOIN manufacturers as Manufacturer
+				ON (Product.manufacturer_id = Manufacturer.id)
+				LEFT JOIN orders_products as OrdersProduct
+				ON (Product.id = OrdersProduct.product_id)
+				GROUP BY OrdersProduct.product_id
+				ORDER BY COUNT(OrdersProduct.product_id) DESC
+				LIMIT 6
+				';
+
+		return $this->query($query);
+	}
 }

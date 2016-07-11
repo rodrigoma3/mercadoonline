@@ -1,4 +1,4 @@
-otable1 = $('#dataTables').dataTable( {
+$('table.datatable').DataTable({
     "language": {
         "emptyTable":     "Não há dados disponíveis na tabela",
         "info":           "Mostrando _START_ para _END_ de _TOTAL_ ",

@@ -69,8 +69,8 @@
 								<ul class="nav navbar-nav">
 									<?php if ($this->Session->read('Auth.User')) { ?>
 										<li><a href="/users/view/<?php echo $this->Session->read('Auth.User.id'); ?>"><i class="fa fa-user"></i> Minha Conta</a></li>
-										<li><a href="/orders/favorite/<?php echo $this->Session->read('Auth.User.id'); ?>"><i class="fa fa-star"></i> Favoritos</a></li>
-										<li><a href="/orders/index/<?php echo $this->Session->read('Auth.User.id'); ?>"><i class="fa fa-crosshairs"></i> Pedidos</a></li>
+										<!-- <li><a href="/orders/favorite/<?php echo $this->Session->read('Auth.User.id'); ?>"><i class="fa fa-star"></i> Favoritos</a></li>
+										<li><a href="/orders/index/<?php echo $this->Session->read('Auth.User.id'); ?>"><i class="fa fa-crosshairs"></i> Pedidos</a></li> -->
 									<?php } ?>
 									<li><a href="/orders/cart/<?php echo $this->Session->read('Auth.User.id'); ?>"><i class="fa fa-shopping-cart"></i> Carrinho</a></li>
 									<?php if ($this->Session->read('Auth.User')) { ?>
@@ -123,7 +123,7 @@
 											</li>
 	                                    </ul>
 	                                </li>
-									<li><a href="index.html">Entrega</a></li>
+									<li><a href="/addresses/addressToDeliver">Entrega</a></li>
 								</ul>
 							</div>
 						</div>

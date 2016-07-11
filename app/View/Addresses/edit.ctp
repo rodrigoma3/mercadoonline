@@ -1,26 +1,18 @@
-<div class="addresses form">
+<div class="addresses form form-group">
 <?php echo $this->Form->create('Address'); ?>
 	<fieldset>
-		<legend><?php echo __('Edit Address'); ?></legend>
+		<legend><?php echo __('Editar Endereço'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
-		echo $this->Form->input('user_id');
-		echo $this->Form->input('cep');
-		echo $this->Form->input('address');
-		echo $this->Form->input('neighborhood');
-		echo $this->Form->input('city');
-		echo $this->Form->input('state');
+		echo $this->Form->input('cep', array('label' => 'CEP', 'class' => 'form-control'));
+		echo $this->Form->input('address', array('label' => 'Endereço', 'class' => 'form-control'));
+		echo $this->Form->input('neighborhood', array('label' => 'Bairro', 'class' => 'form-control'));
+		echo $this->Form->input('city', array('label' => 'Cidade', 'class' => 'form-control'));
+		echo $this->Form->input('state', array('label' => 'Estado', 'class' => 'form-control'));
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Address.id')), array('confirm' => __('Are you sure you want to delete # %s?', $this->Form->value('Address.id')))); ?></li>
-		<li><?php echo $this->Html->link(__('List Addresses'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-	</ul>
+	<?php echo $this->Form->end(array('label' => 'Salvar', 'div' => false)); ?>
+	<?php echo $this->Form->postLink(__('Deletar'), array('action' => 'delete', $this->Form->value('Address.id')), array('confirm' => __('Are you sure you want to delete # %s?', $this->Form->value('Address.id')))); ?>
 </div>

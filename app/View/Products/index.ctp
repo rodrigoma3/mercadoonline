@@ -1,72 +1,119 @@
-<div class="products index">
-	<h2><?php echo __('Products'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
-	<thead>
-	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('name'); ?></th>
-			<th><?php echo $this->Paginator->sort('description'); ?></th>
-			<th><?php echo $this->Paginator->sort('manufacturer_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('category_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('unit_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('stock'); ?></th>
-			<th><?php echo $this->Paginator->sort('price'); ?></th>
-			<th><?php echo $this->Paginator->sort('promotion_price'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
-	</thead>
-	<tbody>
-	<?php foreach ($products as $product): ?>
-	<tr>
-		<td><?php echo h($product['Product']['id']); ?>&nbsp;</td>
-		<td><?php echo h($product['Product']['name']); ?>&nbsp;</td>
-		<td><?php echo h($product['Product']['description']); ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($product['Manufacturer']['name'], array('controller' => 'manufacturers', 'action' => 'view', $product['Manufacturer']['id'])); ?>
-		</td>
-		<td>
-			<?php echo $this->Html->link($product['Category']['name'], array('controller' => 'categories', 'action' => 'view', $product['Category']['id'])); ?>
-		</td>
-		<td>
-			<?php echo $this->Html->link($product['Unit']['name'], array('controller' => 'units', 'action' => 'view', $product['Unit']['id'])); ?>
-		</td>
-		<td><?php echo h($product['Product']['stock']); ?>&nbsp;</td>
-		<td><?php echo h($product['Product']['price']); ?>&nbsp;</td>
-		<td><?php echo h($product['Product']['promotion_price']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $product['Product']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $product['Product']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $product['Product']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $product['Product']['id']))); ?>
-		</td>
-	</tr>
-<?php endforeach; ?>
-	</tbody>
-	</table>
-	<p>
-	<?php
-	echo $this->Paginator->counter(array(
-		'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-	));
-	?>	</p>
-	<div class="paging">
-	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-	?>
-	</div>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Product'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Manufacturers'), array('controller' => 'manufacturers', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Manufacturer'), array('controller' => 'manufacturers', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Categories'), array('controller' => 'categories', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Category'), array('controller' => 'categories', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Units'), array('controller' => 'units', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Unit'), array('controller' => 'units', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Orders'), array('controller' => 'orders', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Order'), array('controller' => 'orders', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+<!-- <div class="products index">
+</div> -->
+			<div class="col-sm-3">
+				<div class="left-sidebar">
+					<h2>Categorias</h2>
+					<div class="panel-group category-products" id="accordian"><!--category-productsr-->
+						<!-- foreach na lista de categorias dos produtos em promoção, cada categoria tem uma lista de fabricantes -->
+						<?php foreach ($optionsCategory as $idCategory => $category): ?>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
+											<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+											<?php echo $category['name']; ?>
+										</a>
+									</h4>
+								</div>
+								<div id="sportswear" class="panel-collapse collapse">
+									<div class="panel-body">
+										<ul>
+											<li><a href="/categories/<?php echo $idCategory; ?>">Todos </a></li>
+											<?php foreach ($category['manufacturers'] as $idManufacturer => $nameManufacturer): ?>
+												<li><a href="/products?categories=<?php echo $idCategory.'&manufacturers='.$idManufacturer; ?>"><?php echo $nameManufacturer; ?> </a></li>
+											<?php endforeach; ?>
+										</ul>
+									</div>
+								</div>
+							</div>
+						<?php endforeach; ?>
+						<!-- fim do foreach -->
+					</div><!--/category-products-->
+
+					<div class="brands_products"><!--brands_products-->
+						<h2>Fabricantes</h2>
+						<div class="brands-name">
+							<ul class="nav nav-pills nav-stacked">
+								<!-- foreach na lista de fabricantes com total de produtos -->
+								<li><a href="#"> <span class="pull-right" title="itens na lista">(50)</span>Acne</a></li>
+							</ul>
+						</div>
+					</div><!--/brands_products-->
+
+				</div>
+			</div>
+
+			<div class="col-sm-9 padding-right">
+				<div class="features_items"><!--features_items-->
+					<h2 class="title text-center">Produtos em Promoção</h2>
+
+					<?php foreach ($products as $product): ?>
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<img src="img/products/<?php echo $product['Product']['id']; ?>.jpg" alt="<?php echo $product['Product']['name']; ?>" />
+										<h2>R$ <?php echo $product['Product']['promotion_price']; ?></h2>
+										<p><?php echo $product['Product']['name'].' - '.$product['Manufacturer']['name']; ?></p>
+										<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Adicionar ao carinho</a>
+									</div>
+									<div class="product-overlay">
+										<div class="overlay-content">
+											<h2>R$ <?php echo $product['Product']['promotion_price']; ?></h2>
+											<p><?php echo $product['Product']['name'].' - '.$product['Manufacturer']['name']; ?></p>
+											<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Adicionar ao carinho</a>
+										</div>
+									</div>
+								</div>
+								<div class="choose">
+									<ul class="nav nav-pills nav-justified">
+										<li><a href="/products/view/<?php echo $product['Product']['id']; ?>"><i class="fa fa-plus-square"></i>Mais informações</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					<?php endforeach; ?>
+
+				</div><!--features_items-->
+
+
+
+				<div class="recommended_items"><!--recommended_items-->
+					<h2 class="title text-center">Produtos mais vendidos</h2>
+
+					<div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+						<div class="carousel-inner">
+							<div class="item active">
+								<?php foreach ($bestSellers as $key => $bestSeller): ?>
+									<?php if ($key == '3'): ?>
+										</div>
+										<div class="item">
+									<?php endif; ?>
+									<div class="col-sm-4">
+										<div class="product-image-wrapper">
+											<div class="single-products">
+												<div class="productinfo text-center">
+													<img src="img/product/<?php echo $bestSeller['Product']['id']; ?>.jpg" alt="<?php echo $bestSeller['Product']['name']; ?>" />
+													<h2>R$ <?php echo $bestSeller['Product']['price']; ?></h2>
+													<p><?php echo $bestSeller['Product']['name']; ?></p>
+													<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Adicionar ao carinho</a>
+												</div>
+
+											</div>
+										</div>
+									</div>
+								<?php endforeach; ?>
+							</div>
+						</div>
+						 <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+							<i class="fa fa-angle-left"></i>
+						  </a>
+						  <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+							<i class="fa fa-angle-right"></i>
+						  </a>
+					</div>
+				</div><!--/recommended_items-->
+
+			</div>
+<?php debug($products); ?>
+<?php debug($optionsCategory); ?>

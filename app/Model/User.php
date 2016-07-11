@@ -64,8 +64,8 @@ class User extends AppModel {
 			),
 		),
 		'cpf' => array(
-			'custom' => array(
-				'rule' => array('custom'),
+			'isCPF' => array(
+				'rule' => array('isCPF'),
 				'message' => 'CPF inválido',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -88,9 +88,19 @@ class User extends AppModel {
 				'rule'    => array('minLength', 3),
 				'message' => 'É necessário possuir ao menos 3 caracteres'
 			),
-			'equalTo' => array(
-				'rule'    => array('equalTo', 'password'),
-				'message' => 'As senhas não conferem'
+			'equalToField' => array(
+				'rule'    => array('equaltofield','confirmPassword'),
+				'message' => 'Os valores informados não são iguais',
+			),
+		),
+		'currentPassword' => array(
+			'length' => array(
+				'rule'    => array('minLength', 3),
+				'message' => 'É necessário possuir ao menos 3 caracteres'
+			),
+			'confirm' => array(
+				'rule'    => 'confirmCurrentPassword',
+				'message' => 'Senha incorreta',
 			),
 		),
 		'role_id' => array(
@@ -114,6 +124,80 @@ class User extends AppModel {
 			),
 		),
 	);
+
+	public function isCPF($check){
+		try {
+			foreach ($check as $value) {
+				$cpf = ereg_replace('[^0-9]', '', (string) $value);
+				break;
+			}
+			if (strlen($cpf) == 11) {
+				if ($cpf == '00000000000' ||
+					$cpf == '11111111111' ||
+					$cpf == '22222222222' ||
+					$cpf == '33333333333' ||
+					$cpf == '44444444444' ||
+					$cpf == '55555555555' ||
+					$cpf == '66666666666' ||
+					$cpf == '77777777777' ||
+					$cpf == '88888888888' ||
+					$cpf == '99999999999') {
+						return false;
+				} else {
+					for ($t = 9; $t < 11; $t++) {
+
+						for ($d = 0, $c = 0; $c < $t; $c++) {
+							$d += $cpf{$c} * (($t + 1) - $c);
+						}
+						$d = ((10 * $d) % 11) % 10;
+						if ($cpf{$c} != $d) {
+							return false;
+						}
+					}
+					return true;
+				}
+			} else {
+				return false;
+			}
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
+	public function equaltofield($check,$otherfield) {
+		try {
+			foreach ($check as $key => $value){
+				$fname = $key;
+				break;
+			}
+			if ($this->data[$this->name][$otherfield] === $this->data[$this->name][$fname]) {
+				return true;
+			} else {
+				$this->invalidate($otherfield, null);
+				return false;
+			}
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
+	public function confirmCurrentPassword($check) {
+		try {
+			foreach ($check as $key => $value){
+				$fname = $key;
+				break;
+			}
+			$usuario = $this->findById($this->data[$this->name]['id']);
+			$newHash = Security::hash($this->data[$this->name][$fname], 'blowfish', $usuario[$this->name]['password']);
+			if($newHash === $usuario[$this->name]['password']){
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception $e) {
+			return false;
+		}
+	}
 
 	// The Associations below have been created with all possible keys, those that are not needed can be removed
 

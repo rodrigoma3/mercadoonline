@@ -33,8 +33,8 @@ class Manufacturer extends AppModel {
 			),
 		),
 		'cnpj' => array(
-			'custom' => array(
-				'rule' => array('custom'),
+			'isCNPJ' => array(
+				'rule' => array('isCNPJ'),
 				'message' => 'CNPJ inválido',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -43,6 +43,35 @@ class Manufacturer extends AppModel {
 			),
 		),
 	);
+
+	public function isCNPJ($check){
+		try {
+			foreach ($check as $value) {
+				$cnpj = preg_replace('/[^0-9]/', '', (string) $value);
+				break;
+			}
+			if (strlen($cnpj) == 14) {
+				for ($i = 0, $j = 5, $soma = 0; $i < 12; $i++){
+					$soma += $cnpj{$i} * $j;
+					$j = ($j == 2) ? 9 : $j - 1;
+				}
+				$resto = $soma % 11;
+				if ($cnpj{12} != ($resto < 2 ? 0 : 11 - $resto)){
+					return false;
+				}
+				for ($i = 0, $j = 6, $soma = 0; $i < 13; $i++){
+					$soma += $cnpj{$i} * $j;
+					$j = ($j == 2) ? 9 : $j - 1;
+				}
+				$resto = $soma % 11;
+				return $cnpj{13} == ($resto < 2 ? 0 : 11 - $resto);
+			} else {
+				return false;
+			}
+		} catch (Exception $e) {
+			return false;
+		}
+	}
 
 	// The Associations below have been created with all possible keys, those that are not needed can be removed
 

@@ -15,11 +15,10 @@ class AddressesController extends AppController {
 			return true;
 
 			switch($this->action) {
-				case 'index':
-				case 'view':
 				case 'add':
 				case 'edit':
 				case 'delete':
+				case 'addressToDeliver':
 					if (in_array($user['role_id'], array('3'))) {
 						return true;
 					} else {
@@ -30,47 +29,41 @@ class AddressesController extends AppController {
 	}
 
 /**
- * index method
- *
- * @return void
- */
-	public function index() {
-		$this->Address->recursive = 0;
-		$this->set('addresses', $this->Paginator->paginate());
-	}
-
-/**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
-		if (!$this->Address->exists($id)) {
-			throw new NotFoundException(__('Invalid address'));
-		}
-		$options = array('conditions' => array('Address.' . $this->Address->primaryKey => $id));
-		$this->set('address', $this->Address->find('first', $options));
-	}
-
-/**
  * add method
  *
  * @return void
  */
 	public function add() {
+		debug($this->request->data);
+		// if ($this->request->is('post')) {
+		// 	$this->request->data[$this->Address->name]['user_id'] = $this->Auth->user('id');
+		// 	$this->Address->create();
+		// 	if ($this->Address->save($this->request->data)) {
+		// 		$this->Flash->success(__('The address has been saved.'));
+		// 		return $this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
+		// 	} else {
+		// 		$this->Flash->error(__('The address could not be saved. Please, try again.'));
+		// 	}
+		// }
+	}
+
+/**
+ * addressToDeliver method
+ *
+ * @return void
+ */
+	public function addressToDeliver() {
 		if ($this->request->is('post')) {
-			$this->Address->create();
-			if ($this->Address->save($this->request->data)) {
-				$this->Flash->success(__('The address has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+			$this->Address->set($this->request->data);
+			if($this->Address->validates()){
+				$options = array('from' => 'Avenida Osvaldo Aranha, 799, Juventude, Bento Gonçalves, 95700-000', 'to' => implode(',', $this->request->data[$this->Address->name]));
+				$distance = $this->calculateDistance($options);
+				// debug($distance);
 			} else {
-				$this->Flash->error(__('The address could not be saved. Please, try again.'));
+				$errors = $this->Address->validationErrors;
+				$this->Flash->error(__('Endereço não válido. Por favor, tente novamente.'));
 			}
 		}
-		$users = $this->Address->User->find('list');
-		$this->set(compact('users'));
 	}
 
 /**
@@ -85,9 +78,10 @@ class AddressesController extends AppController {
 			throw new NotFoundException(__('Invalid address'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
+			$this->request->data[$this->Address->name]['user_id'] = $this->Auth->user('id');
 			if ($this->Address->save($this->request->data)) {
 				$this->Flash->success(__('The address has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				return $this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
 			} else {
 				$this->Flash->error(__('The address could not be saved. Please, try again.'));
 			}
@@ -95,8 +89,6 @@ class AddressesController extends AppController {
 			$options = array('conditions' => array('Address.' . $this->Address->primaryKey => $id));
 			$this->request->data = $this->Address->find('first', $options);
 		}
-		$users = $this->Address->User->find('list');
-		$this->set(compact('users'));
 	}
 
 /**
