@@ -58,6 +58,9 @@ select {
 	width: auto !important;
 	display: inline !important;
 }
+input#CartsProductQuantity {
+	width: 80px;
+}
 
 
 /* SQL log */

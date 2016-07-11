@@ -41,8 +41,8 @@ class ProductsController extends AppController {
  */
 	public function index() {
 		$this->Product->recursive = 0;
-		// $products = $this->Product->find('all', array('conditions' => array('promotion_price >' => '0')));
-		$products = $this->Product->find('all');
+		$products = $this->Product->find('all', array('conditions' => array('promotion_price >' => '0')));
+		// $products = $this->Product->find('all');
 		$bestSellers = $this->Product->bestSellers();
 		$optionsCategory = array();
 		foreach ($products as $product) {

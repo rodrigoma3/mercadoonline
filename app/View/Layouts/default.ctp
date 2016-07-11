@@ -72,7 +72,7 @@
 										<!-- <li><a href="/orders/favorite/<?php echo $this->Session->read('Auth.User.id'); ?>"><i class="fa fa-star"></i> Favoritos</a></li>
 										<li><a href="/orders/index/<?php echo $this->Session->read('Auth.User.id'); ?>"><i class="fa fa-crosshairs"></i> Pedidos</a></li> -->
 									<?php } ?>
-									<li><a href="/orders/cart/<?php echo $this->Session->read('Auth.User.id'); ?>"><i class="fa fa-shopping-cart"></i> Carrinho</a></li>
+									<li><a href="/carts/<?php echo $this->Session->read('Auth.User.id'); ?>"><i class="fa fa-shopping-cart"></i> Carrinho</a></li>
 									<?php if ($this->Session->read('Auth.User')) { ?>
 										<li><a href="/users/logout"><i class="fa fa-sign-out"></i> Sair</a></li>
 									<?php }  else { ?>
