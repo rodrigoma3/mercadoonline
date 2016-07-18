@@ -48,7 +48,7 @@ class ManufacturersController extends AppController {
  */
 	public function admin_view($id = null) {
 		if (!$this->Manufacturer->exists($id)) {
-			throw new NotFoundException(__('Invalid manufacturer'));
+			throw new NotFoundException(__('Fabricante inválido.'));
 		}
 		$options = array('conditions' => array('Manufacturer.' . $this->Manufacturer->primaryKey => $id));
 		$this->set('manufacturer', $this->Manufacturer->find('first', $options));
@@ -63,10 +63,10 @@ class ManufacturersController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Manufacturer->create();
 			if ($this->Manufacturer->save($this->request->data)) {
-				$this->Flash->success(__('The manufacturer has been saved.'));
+				$this->Flash->success(__('O fabricante foi salvo.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Flash->error(__('The manufacturer could not be saved. Please, try again.'));
+				$this->Flash->error(__('O fabricante não pôde ser salvo. Por favor, tente novamente.'));
 			}
 		}
 	}
@@ -80,14 +80,14 @@ class ManufacturersController extends AppController {
  */
 	public function admin_edit($id = null) {
 		if (!$this->Manufacturer->exists($id)) {
-			throw new NotFoundException(__('Invalid manufacturer'));
+			throw new NotFoundException(__('Fabricante inválido.'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Manufacturer->save($this->request->data)) {
-				$this->Flash->success(__('The manufacturer has been saved.'));
+				$this->Flash->success(__('O fabricante foi salvo.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Flash->error(__('The manufacturer could not be saved. Please, try again.'));
+				$this->Flash->error(__('O fabricante não pôde ser salvo. Por favor, tente novamente.'));
 			}
 		} else {
 			$options = array('conditions' => array('Manufacturer.' . $this->Manufacturer->primaryKey => $id));
@@ -105,13 +105,13 @@ class ManufacturersController extends AppController {
 	public function admin_delete($id = null) {
 		$this->Manufacturer->id = $id;
 		if (!$this->Manufacturer->exists()) {
-			throw new NotFoundException(__('Invalid manufacturer'));
+			throw new NotFoundException(__('Fabricante inválido.'));
 		}
 		$this->request->allowMethod('post', 'delete');
 		if ($this->Manufacturer->delete()) {
-			$this->Flash->success(__('The manufacturer has been deleted.'));
+			$this->Flash->success(__('O fabricante foi deletado.'));
 		} else {
-			$this->Flash->error(__('The manufacturer could not be deleted. Please, try again.'));
+			$this->Flash->error(__('O fabricante não pôde ser deletado. Por favor, tente novamente.'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
