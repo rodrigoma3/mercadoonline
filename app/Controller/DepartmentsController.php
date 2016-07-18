@@ -48,7 +48,7 @@ class DepartmentsController extends AppController {
  */
 	public function admin_view($id = null) {
 		if (!$this->Department->exists($id)) {
-			throw new NotFoundException(__('Invalid department'));
+			throw new NotFoundException(__('Departamento inválido.'));
 		}
 		$options = array('conditions' => array('Department.' . $this->Department->primaryKey => $id));
 		$this->set('department', $this->Department->find('first', $options));
@@ -63,10 +63,10 @@ class DepartmentsController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Department->create();
 			if ($this->Department->save($this->request->data)) {
-				$this->Flash->success(__('The department has been saved.'));
+				$this->Flash->success(__('O departamento foi salvo.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Flash->error(__('The department could not be saved. Please, try again.'));
+				$this->Flash->error(__('O departamento não pôde ser salvo. Por favor, tente novamente.'));
 			}
 		}
 	}
@@ -80,14 +80,14 @@ class DepartmentsController extends AppController {
  */
 	public function admin_edit($id = null) {
 		if (!$this->Department->exists($id)) {
-			throw new NotFoundException(__('Invalid department'));
+			throw new NotFoundException(__('Departamento inválido.'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Department->save($this->request->data)) {
-				$this->Flash->success(__('The department has been saved.'));
+				$this->Flash->success(__('O departamento foi salvo.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Flash->error(__('The department could not be saved. Please, try again.'));
+				$this->Flash->error(__('O departamento não pôde ser salvo. Por favor, tente novamente.'));
 			}
 		} else {
 			$options = array('conditions' => array('Department.' . $this->Department->primaryKey => $id));
@@ -105,13 +105,13 @@ class DepartmentsController extends AppController {
 	public function admin_delete($id = null) {
 		$this->Department->id = $id;
 		if (!$this->Department->exists()) {
-			throw new NotFoundException(__('Invalid department'));
+			throw new NotFoundException(__('Departamento inválido.'));
 		}
 		$this->request->allowMethod('post', 'delete');
 		if ($this->Department->delete()) {
-			$this->Flash->success(__('The department has been deleted.'));
+			$this->Flash->success(__('O departamento foi deletado.'));
 		} else {
-			$this->Flash->error(__('The department could not be deleted. Please, try again.'));
+			$this->Flash->error(__('O departamento não pôde ser deletado. Por favor, tente novamente.'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
