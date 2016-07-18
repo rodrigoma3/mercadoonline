@@ -63,7 +63,7 @@ class ProductsController extends AppController {
  */
 	public function view($id = null) {
 		if (!$this->Product->exists($id)) {
-			throw new NotFoundException(__('Invalid product'));
+			throw new NotFoundException(__('Produto inválido.'));
 		}
 		$options = array('conditions' => array('Product.' . $this->Product->primaryKey => $id));
 		$this->set('product', $this->Product->find('first', $options));
@@ -78,10 +78,10 @@ class ProductsController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Product->create();
 			if ($this->Product->save($this->request->data)) {
-				$this->Flash->success(__('The product has been saved.'));
+				$this->Flash->success(__('O produto foi salvo.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Flash->error(__('The product could not be saved. Please, try again.'));
+				$this->Flash->error(__('O produto não pôde ser salvo. Por favor, tente novamente.'));
 			}
 		}
 		$manufacturers = $this->Product->Manufacturer->find('list');
@@ -99,14 +99,14 @@ class ProductsController extends AppController {
  */
 	public function edit($id = null) {
 		if (!$this->Product->exists($id)) {
-			throw new NotFoundException(__('Invalid product'));
+			throw new NotFoundException(__('Produto inválido.'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Product->save($this->request->data)) {
-				$this->Flash->success(__('The product has been saved.'));
+				$this->Flash->success(__('O produto foi salvo.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Flash->error(__('The product could not be saved. Please, try again.'));
+				$this->Flash->error(__('O produto não pôde ser salvo. Por favor, tente novamente.'));
 			}
 		} else {
 			$options = array('conditions' => array('Product.' . $this->Product->primaryKey => $id));
@@ -128,13 +128,13 @@ class ProductsController extends AppController {
 	public function delete($id = null) {
 		$this->Product->id = $id;
 		if (!$this->Product->exists()) {
-			throw new NotFoundException(__('Invalid product'));
+			throw new NotFoundException(__('Produto inválido.'));
 		}
 		$this->request->allowMethod('post', 'delete');
 		if ($this->Product->delete()) {
-			$this->Flash->success(__('The product has been deleted.'));
+			$this->Flash->success(__('O produto foi deletado.'));
 		} else {
-			$this->Flash->error(__('The product could not be deleted. Please, try again.'));
+			$this->Flash->error(__('O produto não pôde ser deletado. Por favor, tente novamente.'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
@@ -158,7 +158,7 @@ class ProductsController extends AppController {
  */
 	public function admin_view($id = null) {
 		if (!$this->Product->exists($id)) {
-			throw new NotFoundException(__('Invalid product'));
+			throw new NotFoundException(__('Produto inválido.'));
 		}
 		$options = array('conditions' => array('Product.' . $this->Product->primaryKey => $id));
 		$this->set('product', $this->Product->find('first', $options));
@@ -173,10 +173,10 @@ class ProductsController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Product->create();
 			if ($this->Product->save($this->request->data)) {
-				$this->Flash->success(__('The product has been saved.'));
+				$this->Flash->success(__('O produto foi salvo.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Flash->error(__('The product could not be saved. Please, try again.'));
+				$this->Flash->error(__('O produto não pôde ser salvo. Por favor, tente novamente.'));
 			}
 		}
 		$manufacturers = $this->Product->Manufacturer->find('list');
@@ -194,14 +194,14 @@ class ProductsController extends AppController {
  */
 	public function admin_edit($id = null) {
 		if (!$this->Product->exists($id)) {
-			throw new NotFoundException(__('Invalid product'));
+			throw new NotFoundException(__('Produto inválido.'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Product->save($this->request->data)) {
-				$this->Flash->success(__('The product has been saved.'));
+				$this->Flash->success(__('O produto foi salvo.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Flash->error(__('The product could not be saved. Please, try again.'));
+				$this->Flash->error(__('O produto não pôde ser salvo. Por favor, tente novamente.'));
 			}
 		} else {
 			$options = array('conditions' => array('Product.' . $this->Product->primaryKey => $id));
@@ -223,13 +223,13 @@ class ProductsController extends AppController {
 	public function admin_delete($id = null) {
 		$this->Product->id = $id;
 		if (!$this->Product->exists()) {
-			throw new NotFoundException(__('Invalid product'));
+			throw new NotFoundException(__('Produto inválido.'));
 		}
 		$this->request->allowMethod('post', 'delete');
 		if ($this->Product->delete()) {
-			$this->Flash->success(__('The product has been deleted.'));
+			$this->Flash->success(__('O produto foi deletado.'));
 		} else {
-			$this->Flash->error(__('The product could not be deleted. Please, try again.'));
+			$this->Flash->error(__('O produto não pôde ser deletado. Por favor, tente novamente.'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
