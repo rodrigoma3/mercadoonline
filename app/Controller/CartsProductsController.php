@@ -37,7 +37,7 @@ class CartsProductsController extends AppController {
  */
 	public function view($id = null) {
 		if (!$this->CartsProduct->exists($id)) {
-			throw new NotFoundException(__('Invalid orders product'));
+			throw new NotFoundException(__('Pedido inválido.'));
 		}
 		$options = array('conditions' => array('CartsProduct.' . $this->CartsProduct->primaryKey => $id));
 		$this->set('ordersProduct', $this->CartsProduct->find('first', $options));
@@ -55,9 +55,9 @@ class CartsProductsController extends AppController {
 			// $this->request->data[$this->CartsProduct->name]['cart_id'] = $cart['id'];
 			$this->CartsProduct->create();
 			if ($this->CartsProduct->save($this->request->data)) {
-				$this->Flash->success(__('The orders product has been saved.'));
+				$this->Flash->success(__('O pedido foi salvo.'));
 			} else {
-				$this->Flash->error(__('The orders product could not be saved. Please, try again.'));
+				$this->Flash->error(__('O pedido não pôde ser salvo. Por favor, tente novamente.'));
 			}
 			return $this->redirect(array('controller' => 'products', 'action' => 'view', $this->request->data[$this->CartsProduct->name]['product_id']));
 		}
@@ -74,14 +74,14 @@ class CartsProductsController extends AppController {
  */
 	public function edit($id = null) {
 		if (!$this->CartsProduct->exists($id)) {
-			throw new NotFoundException(__('Invalid orders product'));
+			throw new NotFoundException(__('Pedido inválido'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->CartsProduct->save($this->request->data)) {
-				$this->Flash->success(__('The orders product has been saved.'));
+				$this->Flash->success(__('O pedido foi salvo.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Flash->error(__('The orders product could not be saved. Please, try again.'));
+				$this->Flash->error(__('O pedido não pôde ser salvo. Por favor, tente novamente.'));
 			}
 		} else {
 			$options = array('conditions' => array('CartsProduct.' . $this->CartsProduct->primaryKey => $id));
@@ -102,13 +102,13 @@ class CartsProductsController extends AppController {
 	public function delete($id = null) {
 		$this->CartsProduct->id = $id;
 		if (!$this->CartsProduct->exists()) {
-			throw new NotFoundException(__('Invalid orders product'));
+			throw new NotFoundException(__('Pedido inválido'));
 		}
 		$this->request->allowMethod('post', 'delete');
 		if ($this->CartsProduct->delete()) {
-			$this->Flash->success(__('The orders product has been deleted.'));
+			$this->Flash->success(__('O pedido foi deletado.'));
 		} else {
-			$this->Flash->error(__('The orders product could not be deleted. Please, try again.'));
+			$this->Flash->error(__('O pedido não pôde ser salvo. Por favor, tente novamente.'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
