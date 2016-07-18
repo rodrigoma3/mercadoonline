@@ -61,7 +61,7 @@ class AddressesController extends AppController {
 				// debug($distance);
 			} else {
 				$errors = $this->Address->validationErrors;
-				$this->Flash->error(__('Endereço não válido. Por favor, tente novamente.'));
+				$this->Flash->error(__('Endereço inválido. Por favor, tente novamente.'));
 			}
 		}
 	}
@@ -75,15 +75,15 @@ class AddressesController extends AppController {
  */
 	public function edit($id = null) {
 		if (!$this->Address->exists($id)) {
-			throw new NotFoundException(__('Invalid address'));
+			throw new NotFoundException(__('Endereço inválido'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			$this->request->data[$this->Address->name]['user_id'] = $this->Auth->user('id');
 			if ($this->Address->save($this->request->data)) {
-				$this->Flash->success(__('The address has been saved.'));
+				$this->Flash->success(__('O endereço foi salvo.'));
 				return $this->redirect(array('controller' => 'users', 'action' => 'view', $this->Auth->user('id')));
 			} else {
-				$this->Flash->error(__('The address could not be saved. Please, try again.'));
+				$this->Flash->error(__('O endereço não pôde ser salvo. Por favor, tente novamente.'));
 			}
 		} else {
 			$options = array('conditions' => array('Address.' . $this->Address->primaryKey => $id));
@@ -101,13 +101,13 @@ class AddressesController extends AppController {
 	public function delete($id = null) {
 		$this->Address->id = $id;
 		if (!$this->Address->exists()) {
-			throw new NotFoundException(__('Invalid address'));
+			throw new NotFoundException(__('Endereço inválido'));
 		}
 		$this->request->allowMethod('post', 'delete');
 		if ($this->Address->delete()) {
-			$this->Flash->success(__('The address has been deleted.'));
+			$this->Flash->success(__('O endereço foi deletado.'));
 		} else {
-			$this->Flash->error(__('The address could not be deleted. Please, try again.'));
+			$this->Flash->error(__('O endereço não pôde ser deletado. Por favor, tente novamente.'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
