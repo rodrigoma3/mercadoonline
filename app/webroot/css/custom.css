@@ -58,9 +58,13 @@ select {
 	width: auto !important;
 	display: inline !important;
 }
+.products.index input#CartsProductQuantity {
+	margin: auto;
+}
 input#CartsProductQuantity {
 	width: 80px;
 }
+
 
 
 /* SQL log */

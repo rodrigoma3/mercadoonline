@@ -1,4 +1,4 @@
-<div class="products index">
+<!-- <div class="products index">
 	<div class="col-sm-3">
 		<div class="left-sidebar">
 			<h2>Categorias</h2>
@@ -113,4 +113,4 @@
 		</div><!--/recommended_items-->
 
 	</div>
-</div>
+</div> -->

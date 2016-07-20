@@ -54,7 +54,8 @@ class AppController extends Controller {
                 'controller' => 'users',
                 'action' => 'login',
             ),
-            'authError' => 'Você não está autorizado a acessar esse local.',
+            'authError' => false,
+            // 'authError' => 'Você não está autorizado a acessar esse local.',
             'flash' => array(
                 'params' => array(
                     'class' => 'alert alert-danger',
@@ -82,6 +83,10 @@ class AppController extends Controller {
             $this->set('menuDepartments', $this->Department->find('all'));
         }
 
+        if ($this->Auth->loggedIn()) {
+            $this->loadModel('Cart');
+            $this->set('cart', $this->Cart->find('first', array('conditions' => array('user_id' => $this->Auth->user('id')))));
+        }
 	}
 
     public function isAuthorized($user = null) {
@@ -93,37 +98,42 @@ class AppController extends Controller {
     }
 
     public function calculateDistance($options) {
-		$HttpSocket = new HttpSocket();
-		$result = $HttpSocket->get('http://maps.googleapis.com/maps/api/distancematrix/xml', array('origins' => $options['from'], 'destinations' => $options['to'], 'language' => 'pt-BR'));
-        $r = Xml::toArray(Xml::build($result->body));
-        $distance = $r['DistanceMatrixResponse'];
-        $distance['deliver'] = false;
-        switch ($distance['status']) {
-            case 'OK':
-                switch ($distance['row']['element']['status']) {
-                    case 'OK':
-                        if ((int) $distance['row']['element']['distance']['value'] <= 3000) {
-                            $this->Flash->success(__('Endereço dentro da área de entrega'));
-                            $distance['deliver'] = true;
-                        } else {
+        try {
+            $HttpSocket = new HttpSocket();
+    		$result = $HttpSocket->get('http://maps.googleapis.com/maps/api/distancematrix/xml', array('origins' => $options['from'], 'destinations' => $options['to'], 'language' => 'pt-BR'));
+            $r = Xml::toArray(Xml::build($result->body));
+            $distance = $r['DistanceMatrixResponse'];
+            $distance['deliver'] = false;
+            switch ($distance['status']) {
+                case 'OK':
+                    switch ($distance['row']['element']['status']) {
+                        case 'OK':
+                            if ((int) $distance['row']['element']['distance']['value'] <= 3000) {
+                                $this->Flash->success(__('Endereço dentro da área de entrega'));
+                                $distance['deliver'] = true;
+                            } else {
+                                $this->Flash->error(__('Endereço fora da área de entrega'));
+                            }
+                            break;
+                        case 'NOT_FOUND':
+                            $this->Flash->error(__('Endereço não encontrado'));
+                            break;
+                        case 'ZERO_RESULTS':
                             $this->Flash->error(__('Endereço fora da área de entrega'));
-                        }
-                        break;
-                    case 'NOT_FOUND':
-                        $this->Flash->error(__('Endereço não encontrado'));
-                        break;
-                    case 'ZERO_RESULTS':
-                        $this->Flash->error(__('Endereço fora da área de entrega'));
-                        break;
-                    default:
-                        $this->Flash->warning(__('Houve uma falha ao processar seu pedido. Por favor, tente novamente e se o problema persistir contate o administrador.'));
-                        break;
-                }
-                break;
-            default:
-                $this->Flash->warning(__('Houve uma falha ao processar seu pedido. Por favor, tente novamente e se o problema persistir contate o administrador.'));
-                break;
+                            break;
+                        default:
+                            $this->Flash->warning(__('Houve uma falha ao processar seu pedido. Por favor, tente novamente e se o problema persistir contate o administrador.'));
+                            break;
+                    }
+                    break;
+                default:
+                    $this->Flash->warning(__('Houve uma falha ao processar seu pedido. Por favor, tente novamente e se o problema persistir contate o administrador.'));
+                    break;
+            }
+            return $distance;
+        } catch (Exception $e) {
+            $this->Flash->error(__('Erro inesperado'));
+            return array('status' => 'ERROR');
         }
-        return $distance;
     }
 }

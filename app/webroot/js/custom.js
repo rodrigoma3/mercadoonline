@@ -61,35 +61,57 @@ $(function(){
         }
         return false;
     });
-    $('.cart-add-form input[type=submit]').click(function(){
-        var product_id = $('#CartsProductProductId').val();
-        var quantity = $('#CartsProductQuantity').val();
-        console.log('Produto: ' + product_id);
-        console.log('Quantidade: ' + quantity);
-        console.log('Error-Message: ' + $('#CartsProductQuantity').parent().children('div.error-message').html());
-        if (quantity == null || quantity == '') {
-            if (!$('#CartsProductQuantity').parent().children('div.error-message').length) {
-                $('#CartsProductQuantity').parent().append('<div class="error-message">Apenas números inteiros positivos</div>');
-            }
-        } else {
-            if ($('#CartsProductQuantity').parent().children('div.error-message').length) {
-                $('#CartsProductQuantity').parent().children('div.error-message').remove();
-            }
-        }
-        if (product_id != null && product_id != '' && quantity != null && quantity != '') {
-            $.ajax({
-                url: "/users/add",
-                type: 'GET',
-                data: {"product_id": product_id, "quantity": quantity },
-                success: function(data){
-                    if (data > 0) {
-                        $('.signup-form div.submit').append('<div class="error-message">Usuário já cadastrado</div>');
-                    } else {
-                        $('.signup-form form').submit();
-                    }
+    $('.add-to-cart').click(function(){
+        var product = $(this).parent().find('#CartsProductProductId');
+        var cart = $(this).parent().find('#CartsProductCartId');
+        var quantity = $(this).parent().find('#CartsProductQuantity');
+        var product_id = product.val();
+        var cart_id = cart.val();
+        var quantity_v = quantity.val();
+        // console.log('Produto: ' + product_id);
+        // console.log('Carrinho: ' + cart_id);
+        // console.log('Quantidade: ' + quantity_v);
+        $.ajax({
+            url: "/cartsproducts/add",
+            type: 'GET',
+            data: {"product_id": product_id, "quantity": quantity_v, "cart_id": cart_id },
+            success: function(data){
+                if (!data) {
+                    angular.element($('#myAngular')).scope().alerta('error','Não foi possível adicionar item ao carrinho. Tente novamente.');
+                } else {
+                    angular.element($('#myAngular')).scope().alerta('success','Item adicionado ao carrinho com sucesso');
                 }
-            });
-        }
+            }
+        });
         return false;
     });
+});
+
+angular.module('myApp', ['angular-growl', 'ngAnimate']);
+
+angular.module('myApp').config(['growlProvider', function (growlProvider) {
+  //Configuração do tempo que a mensagem ficará na tela
+  growlProvider.globalTimeToLive(5000);
+}]);
+
+angular.module('myApp').controller("myCtrl", function($scope, growl){
+ $scope.alerta = function(type,message){
+    var config = {};
+    switch (type) {
+        case 'success':
+            growl.success(message, config);
+            break;
+        case 'info':
+            growl.info(message, config);
+            break;
+        case 'warning':
+            growl.warning(message, config);
+            break;
+        case 'error':
+            growl.error(message, config);
+            break;
+        default:
+
+    }
+ }
 });

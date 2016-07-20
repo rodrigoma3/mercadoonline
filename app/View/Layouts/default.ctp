@@ -17,6 +17,7 @@
 		echo $this->Html->css('price-range');
 		echo $this->Html->css('main');
 		echo $this->Html->css('responsive');
+		echo $this->Html->css('angular-growl');
 		echo $this->Html->css('/datatable/1.10.12/css/dataTables.bootstrap');
 
 		echo $this->fetch('meta');
@@ -72,7 +73,7 @@
 										<!-- <li><a href="/orders/favorite/<?php echo $this->Session->read('Auth.User.id'); ?>"><i class="fa fa-star"></i> Favoritos</a></li>
 										<li><a href="/orders/index/<?php echo $this->Session->read('Auth.User.id'); ?>"><i class="fa fa-crosshairs"></i> Pedidos</a></li> -->
 									<?php } ?>
-									<li><a href="/carts/<?php echo $this->Session->read('Auth.User.id'); ?>"><i class="fa fa-shopping-cart"></i> Carrinho</a></li>
+									<li><a href="/carts/<?php echo (isset($cart)) ? $cart['Cart']['id'] : '' ; ?>"><i class="fa fa-shopping-cart"></i> Carrinho</a></li>
 									<?php if ($this->Session->read('Auth.User')) { ?>
 										<li><a href="/users/logout"><i class="fa fa-sign-out"></i> Sair</a></li>
 									<?php }  else { ?>
@@ -99,7 +100,7 @@
 							</div>
 							<div class="mainmenu pull-left">
 								<ul class="nav navbar-nav collapse navbar-collapse">
-									<li><a href="index.html" class="active">Promoções</a></li>
+									<li><a href="/products" class="active">Promoções</a></li>
 									<li class="dropdown"><a href="#">Departamentos<i class="fa fa-angle-down"></i></a>
 	                                    <ul role="menu" class="sub-menu">
 	                                        <li>
@@ -112,7 +113,7 @@
 																<h4><?php echo $department['Department']['name']; ?></h4>
 																<ul>
 																	<?php foreach ($department['Section'] as $section) { ?>
-																		<li><a href="/products/section/<?php echo $section['id']; ?>"><?php echo $section['name']; ?></a></li>
+																		<li><a href="/sections/index/<?php echo $section['id']; ?>"><?php echo $section['name']; ?></a></li>
 																	<?php } ?>
 																</ul>
 															</div>
@@ -146,6 +147,9 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12">
+						<div ng-app="myApp" ng-controller="myCtrl" id="myAngular">
+							<div limit-messages="1" growl></div>
+						</div>
 						<?php echo $this->Flash->render(); ?>
 
 						<?php echo $this->fetch('content'); ?>
@@ -245,6 +249,10 @@
 		echo $this->Html->script('jquery.scrollUp.min');
 		echo $this->Html->script('main');
 		echo $this->Html->script('price-range');
+		echo $this->Html->script('angular.min');
+		echo $this->Html->script('angular-animate');
+		echo $this->Html->script('angular-sanitize');
+		echo $this->Html->script('angular-growl');
 		echo $this->Html->script('/datatable/1.10.12/js/jquery.dataTables');
 		echo $this->Html->script('/datatable/1.10.12/js/dataTables.bootstrap');
 		echo $this->Html->script('custom');

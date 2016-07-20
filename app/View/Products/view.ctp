@@ -26,8 +26,12 @@
 	</div>
 	<div class="col-sm-3">
 		<div class="form form-group">
-			<?php echo $this->Form->create('CartsProduct'); ?>
+			<?php if (!isset($cart)) {
+				$cart['Cart']['id'] = 0;
+			} ?>
+			<?php echo $this->Form->create('CartsProduct', array('url' => '/cartsproducts/add')); ?>
 			<?php echo $this->Form->input('CartsProduct.product_id', array('type' => 'hidden', 'value' => $product['Product']['id'], 'class' => 'form-control')); ?>
+			<?php echo $this->Form->input('CartsProduct.cart_id', array('type' => 'hidden', 'value' => $cart['Cart']['id'], 'class' => 'form-control')); ?>
 			<?php echo $this->Form->input('CartsProduct.quantity', array('label' => 'Quantidade', 'class' => 'form-control', 'min' => 1, 'max' => $product['Product']['stock'], 'value' => 1)); ?>
 		</div>
 		<div class="actions">

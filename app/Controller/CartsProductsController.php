@@ -28,6 +28,8 @@ class CartsProductsController extends AppController {
 			}
 	}
 
+
+
 /**
  * view method
  *
@@ -49,20 +51,42 @@ class CartsProductsController extends AppController {
  * @return void
  */
 	public function add() {
-		if ($this->request->is('post')) {
-			$cart = $this->Cart->findByUserId($this->Auth->user('id'));
-			debug($cart);
-			// $this->request->data[$this->CartsProduct->name]['cart_id'] = $cart['id'];
-			$this->CartsProduct->create();
+		if($this->request->is('ajax')){
+			$this->autoRender = false;
+			if ($this->request->query('cart_id') == 0) {
+				return $this->redirect(array('controller' => 'users', 'action' => 'login'));
+			} else {
+				$this->request->data[$this->CartsProduct->name]['product_id'] = $this->request->query('product_id');
+				$this->request->data[$this->CartsProduct->name]['cart_id'] = $this->request->query('cart_id');
+				$this->request->data[$this->CartsProduct->name]['quantity'] = $this->request->query('quantity');
+				$productInCart = $this->CartsProduct->find('first', array('conditions' => array('cart_id' => $this->request->data[$this->CartsProduct->name]['cart_id'], 'product_id' => $this->request->data[$this->CartsProduct->name]['product_id'])));
+				if (isset($productInCart[$this->CartsProduct->name]) && !empty($productInCart[$this->CartsProduct->name])) {
+					$this->CartsProduct->id = $productInCart[$this->CartsProduct->name]['id'];
+				} else {
+					$this->CartsProduct->create();
+				}
+				if ($this->CartsProduct->save($this->request->data)) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		} elseif ($this->request->is('post')) {
+			$productInCart = $this->CartsProduct->find('first', array('conditions' => array('cart_id' => $this->request->data[$this->CartsProduct->name]['cart_id'], 'product_id' => $this->request->data[$this->CartsProduct->name]['product_id'])));
+			if (isset($productInCart[$this->CartsProduct->name]) && !empty($productInCart[$this->CartsProduct->name])) {
+				$this->CartsProduct->id = $productInCart[$this->CartsProduct->name]['id'];
+			} else {
+				$this->CartsProduct->create();
+			}
 			if ($this->CartsProduct->save($this->request->data)) {
 				$this->Flash->success(__('O pedido foi salvo.'));
 			} else {
 				$this->Flash->error(__('O pedido não pôde ser salvo. Por favor, tente novamente.'));
 			}
 			return $this->redirect(array('controller' => 'products', 'action' => 'view', $this->request->data[$this->CartsProduct->name]['product_id']));
+		} else {
+			return $this->redirect(array('controller' => 'products', 'action' => 'index'));
 		}
-		$cart = $this->Cart->find('first', array('conditions' => array('user_id' => $this->Auth->user('id')));
-		debug($cart);
 	}
 
 /**
