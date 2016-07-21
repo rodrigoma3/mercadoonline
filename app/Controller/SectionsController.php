@@ -34,6 +34,16 @@ class SectionsController extends AppController {
 	}
 
 /**
+ * index method
+ *
+ * @return void
+ */
+	public function admin_index() {
+		$this->Section->recursive = 0;
+		$this->set('sections', $this->Section->find('all'));
+	}
+
+/**
  * view method
  *
  * @throws NotFoundException
@@ -64,8 +74,6 @@ class SectionsController extends AppController {
 				$this->Flash->error(__('A seção não pôde ser salva. Por favor, tente novamente.'));
 			}
 		}
-		$departments = $this->Section->Department->find('list');
-		$this->set(compact('departments'));
 	}
 
 /**
@@ -90,8 +98,6 @@ class SectionsController extends AppController {
 			$options = array('conditions' => array('Section.' . $this->Section->primaryKey => $id));
 			$this->request->data = $this->Section->find('first', $options);
 		}
-		$departments = $this->Section->Department->find('list');
-		$this->set(compact('departments'));
 	}
 
 /**

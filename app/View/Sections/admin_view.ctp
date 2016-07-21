@@ -7,8 +7,6 @@
 		<dd><?php echo $section['Section']['name']; ?>&nbsp;</dd>
 		<dt><?php echo __('Descrição'); ?></dt>
 		<dd><?php echo $section['Section']['description']; ?>&nbsp;</dd>
-		<dt><?php echo __('Departamento'); ?></dt>
-		<dd><?php echo $this->Html->link($section['Department']['name'], array('controller' => 'departments', 'action' => 'view', $section['Department']['id'])); ?>&nbsp;</dd>
 	</dl>
 </div>
 <div class="actions">

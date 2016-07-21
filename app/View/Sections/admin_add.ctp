@@ -5,7 +5,6 @@
 	<?php
 		echo $this->Form->input('name', array('label' => 'Nome', 'class' => 'form-control'));
 		echo $this->Form->input('description', array('label' => 'Descrição', 'class' => 'form-control'));
-		echo $this->Form->input('department_id', array('label' => 'Departamento', 'class' => 'form-control'));
 	?>
 	</fieldset>
 </div>

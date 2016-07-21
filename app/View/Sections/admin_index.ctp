@@ -6,7 +6,6 @@
 				<th>#</th>
 				<th>Nome</th>
 				<th>Descrição</th>
-				<th>Departamento</th>
 				<th>Ações</th>
 			</tr>
 		</thead>
@@ -16,9 +15,6 @@
 				<td><?php echo $section['Section']['id']; ?></td>
 				<td><?php echo $section['Section']['name']; ?></td>
 				<td><?php echo $section['Section']['description']; ?></td>
-				<td>
-					<?php echo $this->Html->link($section['Department']['name'], array('controller' => 'departments', 'action' => 'view', $section['Department']['id'])); ?>
-				</td>
 				<td>
 					<?php echo $this->Html->link('<i class="fa fa-eye"></i>', array('action' => 'view', $section['Section']['id']), array('escape' => false, 'title' => 'ver')); ?>
 					&nbsp;
