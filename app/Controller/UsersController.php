@@ -91,6 +91,7 @@ class UsersController extends AppController {
 		$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
 		$this->set('user', $this->User->find('first', $options));
 		$this->set('situations', $this->User->Order->Situation->find('list'));
+		$this->set('title_for_layout', 'Usuários');
 	}
 
 /**
