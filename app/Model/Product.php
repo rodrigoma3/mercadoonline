@@ -139,7 +139,7 @@ class Product extends AppModel {
 		)
 	);
 
-	public function bestSellers($options = array()) {
+	public function bestSellers() {
 		$query = 'SELECT Product.*, Manufacturer.*
 				FROM products as Product
 				LEFT JOIN manufacturers as Manufacturer
@@ -152,5 +152,29 @@ class Product extends AppModel {
 				';
 
 		return $this->query($query);
+	}
+
+	public function searchProducts($q = null) {
+		$this->recursive = 0;
+		if ($q == null) $q = '';
+		$conditions = array('OR' => array(
+				$this->alias.'.name LIKE' => "%$q%",
+				$this->alias.'.description LIKE' => "%$q%",
+				$this->Manufacturer->alias.'.name LIKE' => "%$q%",
+				$this->Category->alias.'.name LIKE' => "%$q%",
+				$this->Category->alias.'.description LIKE' => "%$q%",
+				$this->Category->Section->alias.'.name LIKE' => "%$q%",
+				$this->Category->Section->alias.'.description LIKE' => "%$q%",
+			)
+		);
+		$join = array(
+			array(
+				'table' => $this->Category->Section->table,
+				'alias' => $this->Category->Section->alias,
+				'type' => 'LEFT',
+				'conditions' => array($this->Category->Section->alias.'.id = '.$this->Category->alias.'.section_id'),
+			)
+		);
+		return $this->find('all', array('conditions' => $conditions, 'joins' => $join));
 	}
 }

@@ -31,7 +31,7 @@ class ProductsController extends AppController {
 
 	public function beforeFilter() {
         parent::beforeFilter();
-		$this->Auth->allow('index', 'view');
+		$this->Auth->allow('index', 'view', 'category', 'section', 'search');
 	}
 
 /**
@@ -41,17 +41,77 @@ class ProductsController extends AppController {
  */
 	public function index() {
 		$this->Product->recursive = 0;
-		$products = $this->Product->find('all', array('conditions' => array('promotion_price >' => '0')));
-		// $products = $this->Product->find('all');
-		$bestSellers = $this->Product->bestSellers();
-		$optionsCategory = array();
-		foreach ($products as $product) {
-			$optionsCategory[$product['Category']['id']]['name'] = $product['Category']['name'];
-			$optionsCategory[$product['Category']['id']]['manufacturers'][$product['Manufacturer']['id']] = $product['Manufacturer']['name'];
-		}
-		$this->set('optionsCategory', $optionsCategory);
+		$options = array('conditions' => array('promotion_price >' => '0'));
+		$products = $this->Product->find('all', $options);
+		$this->set('menuLeft', $this->menuLeft($products));
 		$this->set('products', $products);
-		$this->set('bestSellers', $bestSellers);
+		$this->set('bestSellers', $this->Product->bestSellers());
+	}
+
+/**
+ * section method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function section($id = null) {
+		$this->Product->Category->Section->id = $id;
+		if (!$this->Product->Category->Section->exists()) {
+			throw new NotFoundException(__('Categoria inválida'));
+		}
+		$titleProducts = ''.$this->Product->Category->Section->field('name');
+		$this->Product->recursive = 0;
+		$options = array($this->Product->Category->alias.'.section_id' => $id);
+		$products = $this->Product->find('all', array('conditions' => $options));
+		$this->set('menuLeft', $this->menuLeft($products));
+		$this->set('products', $products);
+		$this->set('titleProducts', $titleProducts);
+	}
+
+/**
+ * category method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function category($id = null, $filter = null, $idFilter = null) {
+		$this->Product->Category->id = $id;
+		if (!$this->Product->Category->exists()) {
+			throw new NotFoundException(__('Categoria inválida'));
+		}
+		$titleProducts = ''.$this->Product->Category->field('name');
+		$this->Product->recursive = 0;
+		$options = array('category_id' => $id);
+		if ($filter != null) {
+			switch ($filter) {
+				case 'manufacturer':
+					$options['manufacturer_id'] = $idFilter;
+					$this->Product->Manufacturer->id = $idFilter;
+					$titleProducts = $titleProducts.' - '.$this->Product->Manufacturer->field('name');
+					break;
+			}
+		}
+		$products = $this->Product->find('all', array('conditions' => $options));
+		$this->set('menuLeft', $this->menuLeft($products));
+		$this->set('products', $products);
+		$this->set('titleProducts', $titleProducts);
+	}
+
+/**
+ * search method
+ *
+ * @throws NotFoundException
+ * @param string $q
+ * @return void
+ */
+	public function search() {
+		$products = $this->Product->searchProducts($this->request->query('q'));
+		$titleProducts = 'Resultado(s) de "'.$this->request->query('q').'"';
+		$this->set('menuLeft', $this->menuLeft($products));
+		$this->set('products', $products);
+		$this->set('titleProducts', $titleProducts);
 	}
 
 /**
@@ -232,5 +292,21 @@ class ProductsController extends AppController {
 			$this->Flash->error(__('O produto não pôde ser deletado. Por favor, tente novamente.'));
 		}
 		return $this->redirect(array('action' => 'index'));
+	}
+
+/**
+ * menuLeft method
+ *
+ * @throws NotFoundException
+ * @param array $products
+ * @return array
+ */
+	public function menuLeft($products = array()) {
+		$menuLeft = array();
+		foreach ($products as $product) {
+			$menuLeft[$product['Category']['id']]['name'] = $product['Category']['name'];
+			$menuLeft[$product['Category']['id']]['manufacturers'][$product['Manufacturer']['id']] = $product['Manufacturer']['name'];
+		}
+		return $menuLeft;
 	}
 }

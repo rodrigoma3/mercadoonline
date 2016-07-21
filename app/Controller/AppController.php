@@ -79,8 +79,8 @@ class AppController extends Controller {
         if($this->request->prefix == 'admin'){
             $this->layout = 'admin';
         } else {
-            $this->loadModel('Department');
-            $this->set('menuDepartments', $this->Department->find('all'));
+            $this->loadModel('Section');
+            $this->set('menuTop', $this->Section->find('all'));
         }
 
         if ($this->Auth->loggedIn()) {

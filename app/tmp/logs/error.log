@@ -21095,3 +21095,99 @@ Request URL: /images/home/searchicon.png
 Stack Trace:
 #0 C:\Projetos\mercadoonline\app\webroot\index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2016-07-21 17:34:06 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[28000] [1045] Access denied for user \'root\'@\'localhost\' (using password: NO)',
+  'enabled' => true,
+)
+Request URL: /
+Stack Trace:
+#0 /var/www/html/mercadoonline/lib/Cake/Model/Datasource/DboSource.php(260): Mysql->connect()
+#1 /var/www/html/mercadoonline/lib/Cake/Model/ConnectionManager.php(105): DboSource->__construct(Array)
+#2 /var/www/html/mercadoonline/lib/Cake/Model/Model.php(3626): ConnectionManager::getDataSource('default')
+#3 /var/www/html/mercadoonline/lib/Cake/Model/Model.php(1155): Model->setDataSource('default')
+#4 /var/www/html/mercadoonline/lib/Cake/Model/Model.php(3653): Model->setSource('sections')
+#5 /var/www/html/mercadoonline/lib/Cake/Model/Model.php(3031): Model->getDataSource()
+#6 /var/www/html/mercadoonline/lib/Cake/Model/Model.php(3003): Model->_readDataSource('all', Array)
+#7 /var/www/html/mercadoonline/app/Controller/AppController.php(83): Model->find('all')
+#8 /var/www/html/mercadoonline/app/Controller/ProductsController.php(33): AppController->beforeFilter()
+#9 [internal function]: ProductsController->beforeFilter(Object(CakeEvent))
+#10 /var/www/html/mercadoonline/lib/Cake/Event/CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#11 /var/www/html/mercadoonline/lib/Cake/Controller/Controller.php(677): CakeEventManager->dispatch(Object(CakeEvent))
+#12 /var/www/html/mercadoonline/lib/Cake/Routing/Dispatcher.php(189): Controller->startupProcess()
+#13 /var/www/html/mercadoonline/lib/Cake/Routing/Dispatcher.php(167): Dispatcher->_invoke(Object(ProductsController), Object(CakeRequest))
+#14 /var/www/html/mercadoonline/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2016-07-21 17:34:07 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /css/cake.generic.css
+Stack Trace:
+#0 /var/www/html/mercadoonline/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:34:29 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/product/3.jpg
+Stack Trace:
+#0 /var/www/html/mercadoonline/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:34:29 Error: [MissingControllerException] Controller class ImagesController could not be found.
+Exception Attributes: array (
+  'class' => 'ImagesController',
+  'plugin' => NULL,
+)
+Request URL: /images/home/searchicon.png
+Stack Trace:
+#0 /var/www/html/mercadoonline/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:34:29 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/product/4.jpg
+Stack Trace:
+#0 /var/www/html/mercadoonline/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:34:29 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/product/5.jpg
+Stack Trace:
+#0 /var/www/html/mercadoonline/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:34:29 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/product/1.jpg
+Stack Trace:
+#0 /var/www/html/mercadoonline/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:34:29 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /img/product/2.jpg
+Stack Trace:
+#0 /var/www/html/mercadoonline/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2016-07-21 17:34:45 Error: [MissingControllerException] Controller class ImagesController could not be found.
+Exception Attributes: array (
+  'class' => 'ImagesController',
+  'plugin' => NULL,
+)
+Request URL: /images/home/searchicon.png
+Stack Trace:
+#0 /var/www/html/mercadoonline/app/webroot/index.php(111): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}

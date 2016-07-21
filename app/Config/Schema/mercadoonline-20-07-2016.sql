@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `mercadoonline`
 --
+CREATE DATABASE IF NOT EXISTS `mercadoonline` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `mercadoonline`;
 
 -- --------------------------------------------------------
 
@@ -26,7 +28,7 @@ SET time_zone = "+00:00";
 -- Estrutura da tabela `addresses`
 --
 
-CREATE TABLE `addresses` (
+CREATE TABLE IF NOT EXISTS `addresses` (
   `id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `cep` varchar(255) NOT NULL,
@@ -53,7 +55,7 @@ INSERT INTO `addresses` (`id`, `user_id`, `cep`, `address`, `neighborhood`, `cit
 -- Estrutura da tabela `carts`
 --
 
-CREATE TABLE `carts` (
+CREATE TABLE IF NOT EXISTS `carts` (
   `id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -71,7 +73,7 @@ INSERT INTO `carts` (`id`, `user_id`) VALUES
 -- Estrutura da tabela `carts_products`
 --
 
-CREATE TABLE `carts_products` (
+CREATE TABLE IF NOT EXISTS `carts_products` (
   `id` int(10) UNSIGNED NOT NULL,
   `product_id` int(10) UNSIGNED NOT NULL,
   `cart_id` int(10) UNSIGNED NOT NULL,
@@ -92,7 +94,7 @@ INSERT INTO `carts_products` (`id`, `product_id`, `cart_id`, `quantity`) VALUES
 -- Estrutura da tabela `categories`
 --
 
-CREATE TABLE `categories` (
+CREATE TABLE IF NOT EXISTS `categories` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
@@ -116,7 +118,7 @@ INSERT INTO `categories` (`id`, `name`, `description`, `section_id`) VALUES
 -- Estrutura da tabela `departments`
 --
 
-CREATE TABLE `departments` (
+CREATE TABLE IF NOT EXISTS `departments` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL
@@ -145,7 +147,7 @@ INSERT INTO `departments` (`id`, `name`, `description`) VALUES
 -- Estrutura da tabela `manufacturers`
 --
 
-CREATE TABLE `manufacturers` (
+CREATE TABLE IF NOT EXISTS `manufacturers` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
   `cnpj` varchar(14) NOT NULL
@@ -167,7 +169,7 @@ INSERT INTO `manufacturers` (`id`, `name`, `cnpj`) VALUES
 -- Estrutura da tabela `orders`
 --
 
-CREATE TABLE `orders` (
+CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `created` datetime NOT NULL,
@@ -195,7 +197,7 @@ INSERT INTO `orders` (`id`, `user_id`, `created`, `modified`, `situation_id`, `t
 -- Estrutura da tabela `orders_products`
 --
 
-CREATE TABLE `orders_products` (
+CREATE TABLE IF NOT EXISTS `orders_products` (
   `id` int(10) UNSIGNED NOT NULL,
   `product_id` int(10) UNSIGNED NOT NULL,
   `order_id` int(10) UNSIGNED NOT NULL,
@@ -223,7 +225,7 @@ INSERT INTO `orders_products` (`id`, `product_id`, `order_id`, `quantity`, `unit
 -- Estrutura da tabela `products`
 --
 
-CREATE TABLE `products` (
+CREATE TABLE IF NOT EXISTS `products` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
@@ -251,7 +253,7 @@ INSERT INTO `products` (`id`, `name`, `description`, `manufacturer_id`, `categor
 -- Estrutura da tabela `roles`
 --
 
-CREATE TABLE `roles` (
+CREATE TABLE IF NOT EXISTS `roles` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL
@@ -272,7 +274,7 @@ INSERT INTO `roles` (`id`, `name`, `description`) VALUES
 -- Estrutura da tabela `sections`
 --
 
-CREATE TABLE `sections` (
+CREATE TABLE IF NOT EXISTS `sections` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
@@ -305,7 +307,7 @@ INSERT INTO `sections` (`id`, `name`, `description`, `department_id`) VALUES
 -- Estrutura da tabela `situations`
 --
 
-CREATE TABLE `situations` (
+CREATE TABLE IF NOT EXISTS `situations` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL
@@ -328,7 +330,7 @@ INSERT INTO `situations` (`id`, `name`, `description`) VALUES
 -- Estrutura da tabela `users`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,

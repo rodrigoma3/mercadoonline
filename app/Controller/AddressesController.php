@@ -75,7 +75,7 @@ class AddressesController extends AppController {
  */
 	public function edit($id = null) {
 		if (!$this->Address->exists($id)) {
-			throw new NotFoundException(__('Endereço inválido.'));
+			throw new NotFoundException(__('Endereço inválido'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			$this->request->data[$this->Address->name]['user_id'] = $this->Auth->user('id');

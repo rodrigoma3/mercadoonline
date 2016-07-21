@@ -80,7 +80,6 @@
 							</div>
 							<div class="mainmenu pull-left">
 								<ul class="nav navbar-nav collapse navbar-collapse">
-									<li><a href="/admin/departments">Departamentos</a></li>
 									<li><a href="/admin/sections">Seções</a></li>
 									<li><a href="/admin/categories">Categorias</a></li>
 									<li><a href="/admin/manufacturers">Fabricantes</a></li>

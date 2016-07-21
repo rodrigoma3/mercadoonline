@@ -66,9 +66,9 @@ class CartsProductsController extends AppController {
 					$this->CartsProduct->create();
 				}
 				if ($this->CartsProduct->save($this->request->data)) {
-					return true;
+					return 1;
 				} else {
-					return false;
+					return 0;
 				}
 			}
 		} elseif ($this->request->is('post')) {

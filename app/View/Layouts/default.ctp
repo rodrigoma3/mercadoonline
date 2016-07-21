@@ -34,8 +34,8 @@
 						<div class="col-sm-6">
 							<div class="contactinfo">
 								<ul class="nav nav-pills">
-									<li><a href="#"><i class="fa fa-phone"></i> (54) 3334-1100</a></li>
-									<li><a href="#"><i class="fa fa-envelope"></i> atendimento@mercadoonline.com.br</a></li>
+									<li><a href=""><i class="fa fa-phone"></i> (54) 3334-1100</a></li>
+									<li><a href=""><i class="fa fa-envelope"></i> atendimento@mercadoonline.com.br</a></li>
 								</ul>
 							</div>
 						</div>
@@ -57,7 +57,7 @@
 					<div class="row">
 						<div class="col-sm-4">
 							<div class="logo pull-left">
-								<a href="/products/index">Mercado Online<!--<img src="images/home/logo.png" alt="" />--></a>
+								<a href="/products">Mercado Online<!--<img src="images/home/logo.png" alt="" />--></a>
 							</div>
 						</div>
 						<!-- <div class="col-sm-3">
@@ -101,19 +101,19 @@
 							<div class="mainmenu pull-left">
 								<ul class="nav navbar-nav collapse navbar-collapse">
 									<li><a href="/products" class="active">Promoções</a></li>
-									<li class="dropdown"><a href="#">Departamentos<i class="fa fa-angle-down"></i></a>
+									<li class="dropdown"><a href="#">Seções<i class="fa fa-angle-down"></i></a>
 	                                    <ul role="menu" class="sub-menu">
 	                                        <li>
 												<!-- <div class="container"> -->
 													<div class="row">
 													<!-- <div class="col-sm-12"> -->
 														<?php
-														foreach ($menuDepartments as $department) { ?>
+														foreach ($menuTop as $section) { ?>
 															<div class="col-sm-3">
-																<h4><?php echo $department['Department']['name']; ?></h4>
+																<a href="/products/section/<?php echo $section['Section']['id']; ?>"><h4><?php echo $section['Section']['name']; ?></h4></a>
 																<ul>
-																	<?php foreach ($department['Section'] as $section) { ?>
-																		<li><a href="/sections/index/<?php echo $section['id']; ?>"><?php echo $section['name']; ?></a></li>
+																	<?php foreach ($section['Category'] as $category) { ?>
+																		<li><a href="/products/category/<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a></li>
 																	<?php } ?>
 																</ul>
 															</div>
@@ -129,7 +129,7 @@
 							</div>
 						</div>
 						<div class="col-sm-6 form-group">
-							<?php echo $this->Form->create('Product', array('url' => '/products', 'type' => 'get')); ?>
+							<?php echo $this->Form->create('Product', array('url' => '/products/search', 'type' => 'get')); ?>
 							<div class="search_box pull-right input-group">
 								<?php echo $this->Form->input('q', array('label' => false, 'class' => 'form-control', 'placeholder' => 'Buscar')); ?>
 								<span class="input-group-btn">

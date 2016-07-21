@@ -15,12 +15,6 @@ class Section extends AppModel {
  */
 	public $displayField = 'name';
 
-	public function beforeValidate($options = array()){
-		parent::beforeValidate($options);
-
-		$this->validate['department_id']['inList']['rule'][1] = array_keys($this->Department->find('list'));
-	}
-
 /**
  * Validation rules
  *
@@ -39,34 +33,9 @@ class Section extends AppModel {
 				'message' => 'Valor já registrado!',
 			),
 		),
-		'department_id' => array(
-			'inList' => array(
-				'rule' => array('inList', array()),
-				'message' => 'Escolha uma das opções disponíveis',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
 	);
 
 	// The Associations below have been created with all possible keys, those that are not needed can be removed
-
-/**
- * belongsTo associations
- *
- * @var array
- */
-	public $belongsTo = array(
-		'Department' => array(
-			'className' => 'Department',
-			'foreignKey' => 'department_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
-	);
 
 /**
  * hasMany associations

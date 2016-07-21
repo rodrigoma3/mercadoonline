@@ -31,32 +31,6 @@ class SectionsController extends AppController {
 
 	public function beforeFilter() {
         parent::beforeFilter();
-		$this->Auth->allow('index');
-	}
-
-/**
- * index method
- *
- * @return void
- */
-	public function index($id = null) {
-		if (!$this->Section->exists($id)) {
-			throw new NotFoundException(__('Seção inválida.'));
-		}
-		$options = array('conditions' => array('Section.' . $this->Section->primaryKey => $id));
-		$this->Section->recursive = 1;
-		debug($this->Section->find('all',$options));
-		// $products = $this->Product->find('all', array('conditions' => array('promotion_price >' => '0')));
-		// // $products = $this->Product->find('all');
-		// $bestSellers = $this->Product->bestSellers();
-		// $optionsCategory = array();
-		// foreach ($products as $product) {
-		// 	$optionsCategory[$product['Category']['id']]['name'] = $product['Category']['name'];
-		// 	$optionsCategory[$product['Category']['id']]['manufacturers'][$product['Manufacturer']['id']] = $product['Manufacturer']['name'];
-		// }
-		// $this->set('optionsCategory', $optionsCategory);
-		// $this->set('products', $products);
-		// $this->set('bestSellers', $bestSellers);
 	}
 
 /**
