@@ -197,6 +197,7 @@ class UsersController extends AppController {
 		$this->User->recursive = 0;
 		$options = array($this->User->alias.'.role_id <>' => '3');
 		$this->set('users', $this->User->find('all', array('conditions' => $options)));
+		$this->set('title_for_layout', 'Usuários');
 	}
 
 /**
