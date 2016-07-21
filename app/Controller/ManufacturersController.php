@@ -52,6 +52,7 @@ class ManufacturersController extends AppController {
 		}
 		$options = array('conditions' => array('Manufacturer.' . $this->Manufacturer->primaryKey => $id));
 		$this->set('manufacturer', $this->Manufacturer->find('first', $options));
+		$this->set('title_for_layout', 'Fabricantes');
 	}
 
 /**
