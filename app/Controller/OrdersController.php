@@ -41,6 +41,7 @@ class OrdersController extends AppController {
 		}
 		$options = array('conditions' => array('Order.' . $this->Order->primaryKey => $id));
 		$this->set('order', $this->Order->find('first', $options));
+		$this->set('title_for_layout', 'Pedidos');
 	}
 
 /**
