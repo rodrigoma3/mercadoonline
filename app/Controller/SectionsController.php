@@ -41,7 +41,7 @@ class SectionsController extends AppController {
  */
 	public function index($id = null) {
 		if (!$this->Section->exists($id)) {
-			throw new NotFoundException(__('Invalid section'));
+			throw new NotFoundException(__('Seção inválida.'));
 		}
 		$options = array('conditions' => array('Section.' . $this->Section->primaryKey => $id));
 		$this->Section->recursive = 1;
@@ -68,10 +68,11 @@ class SectionsController extends AppController {
  */
 	public function admin_view($id = null) {
 		if (!$this->Section->exists($id)) {
-			throw new NotFoundException(__('Invalid section'));
+			throw new NotFoundException(__('Sessão inválida.'));
 		}
 		$options = array('conditions' => array('Section.' . $this->Section->primaryKey => $id));
 		$this->set('section', $this->Section->find('first', $options));
+		$this->set('title_for_layout', 'Seção');
 	}
 
 /**
@@ -83,10 +84,10 @@ class SectionsController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Section->create();
 			if ($this->Section->save($this->request->data)) {
-				$this->Flash->success(__('The section has been saved.'));
+				$this->Flash->success(__('A seção foi salva.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Flash->error(__('The section could not be saved. Please, try again.'));
+				$this->Flash->error(__('A seção não pôde ser salva. Por favor, tente novamente.'));
 			}
 		}
 		$departments = $this->Section->Department->find('list');
@@ -102,14 +103,14 @@ class SectionsController extends AppController {
  */
 	public function admin_edit($id = null) {
 		if (!$this->Section->exists($id)) {
-			throw new NotFoundException(__('Invalid section'));
+			throw new NotFoundException(__('Seção inválida.'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Section->save($this->request->data)) {
-				$this->Flash->success(__('The section has been saved.'));
+				$this->Flash->success(__('A seção foi salva.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Flash->error(__('The section could not be saved. Please, try again.'));
+				$this->Flash->error(__('A seção não pôde ser salva. Por favor, tente novamente.'));
 			}
 		} else {
 			$options = array('conditions' => array('Section.' . $this->Section->primaryKey => $id));
@@ -129,13 +130,13 @@ class SectionsController extends AppController {
 	public function admin_delete($id = null) {
 		$this->Section->id = $id;
 		if (!$this->Section->exists()) {
-			throw new NotFoundException(__('Invalid section'));
+			throw new NotFoundException(__('Seção inválida.'));
 		}
 		$this->request->allowMethod('post', 'delete');
 		if ($this->Section->delete()) {
-			$this->Flash->success(__('The section has been deleted.'));
+			$this->Flash->success(__('A seção foi salva.'));
 		} else {
-			$this->Flash->error(__('The section could not be deleted. Please, try again.'));
+			$this->Flash->error(__('A seção não pôde ser salva. Porfavor, tente novamente.'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
