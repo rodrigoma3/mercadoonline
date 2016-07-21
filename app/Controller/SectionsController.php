@@ -72,7 +72,7 @@ class SectionsController extends AppController {
 		}
 		$options = array('conditions' => array('Section.' . $this->Section->primaryKey => $id));
 		$this->set('section', $this->Section->find('first', $options));
-		$this->set('title_for_layout', 'Seção');
+		$this->set('title_for_layout', 'Seções');
 	}
 
 /**
