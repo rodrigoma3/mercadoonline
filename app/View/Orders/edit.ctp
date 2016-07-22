@@ -8,7 +8,7 @@
 		echo $this->Form->input('address_to_deliver', array('label' => 'Endereço de Entrega', 'class' => 'form-control'));
 		echo $this->Form->label('deliver_on', 'Entregar em');
 		echo '<br/>';
-		echo $this->Form->datetime('deliver_on', 'DMY', '24', array('class' => 'form-control'));
+		echo $this->Form->datetime('deliver_on', 'DMY', '24', array('class' => 'form-control date'));
 	?>
 	</fieldset>
 </div>

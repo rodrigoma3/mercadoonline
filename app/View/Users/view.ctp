@@ -13,10 +13,6 @@
 		<dd><?php echo $user['User']['created']; ?>&nbsp;</dd>
 		<dt><?php echo 'Modificado em'; ?></dt>
 		<dd><?php echo $user['User']['modified']; ?>&nbsp;</dd>
-		<?php if ($this->Session->read('Auth.User.role_id') != '3'): ?>
-			<dt><?php echo 'Função'; ?></dt>
-			<dd><?php echo $user['Role']['name']; ?>&nbsp;</dd>
-		<?php endif; ?>
 		<dt><?php echo 'Último acesso'; ?></dt>
 		<dd><?php echo $user['User']['last_login']; ?>&nbsp;</dd>
 	</dl>

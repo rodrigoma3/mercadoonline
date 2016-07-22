@@ -56,6 +56,9 @@ $(function(){
                     } else {
                         $('.signup-form form').submit();
                     }
+                },
+                error: function(){
+                    angular.element($('#myAngular')).scope().alerta('error','Não foi possível processar sua solicitação. Tente novamente.');
                 }
             });
         }
@@ -63,29 +66,104 @@ $(function(){
     });
     $('.add-to-cart').click(function(){
         var product = $(this).parent().find('#CartsProductProductId');
-        var cart = $(this).parent().find('#CartsProductCartId');
         var quantity = $(this).parent().find('#CartsProductQuantity');
         var product_id = product.val();
-        var cart_id = cart.val();
         var quantity_v = quantity.val();
         // console.log('Produto: ' + product_id);
-        // console.log('Carrinho: ' + cart_id);
         // console.log('Quantidade: ' + quantity_v);
         $.ajax({
-            url: "/cartsproducts/add",
+            url: "/cartsProducts/add",
             type: 'GET',
-            data: {"product_id": product_id, "quantity": quantity_v, "cart_id": cart_id },
+            data: {"product_id": product_id, "quantity": quantity_v },
             success: function(data){
-                if (!data) {
-                    angular.element($('#myAngular')).scope().alerta('error','Não foi possível adicionar item ao carrinho. Tente novamente.');
-                } else {
+                if (data == '1') {
                     angular.element($('#myAngular')).scope().alerta('success','Item adicionado ao carrinho com sucesso');
+                } else {
+                    angular.element($('#myAngular')).scope().alerta('error','Não foi possível adicionar item ao carrinho. Tente novamente.');
                 }
+            },
+            error: function(){
+                angular.element($('#myAngular')).scope().alerta('error','Não foi possível adicionar item ao carrinho. Entre com sua conta e tente novamente.');
             }
         });
         return false;
     });
+    $('.cart_quantity_delete').click(function(){
+        var linha = $(this).parent().parent();
+        var id = linha.find('#CartsProductId').val();
+        // console.log('ID: ' + id);
+        $.ajax({
+            url: "/cartsProducts/delete",
+            type: 'GET',
+            data: {"id": id},
+            success: function(data){
+                if (data == 1) {
+                    angular.element($('#myAngular')).scope().alerta('success','Item excluído do carrinho com sucesso');
+                    linha.remove();
+                } else {
+                    angular.element($('#myAngular')).scope().alerta('error','Não foi possível excluir item do carrinho. Tente novamente.');
+                }
+            },
+            error: function(){
+                angular.element($('#myAngular')).scope().alerta('error','Não foi possível excluir item do carrinho. Tente novamente.');
+            }
+        });
+        return false;
+    });
+    $('.cart_quantity_up').click(function(){
+        var elQuantity = $(this).parent().find('#CartsProductQuantity');
+        var value = parseInt(elQuantity.val());
+        var max = parseInt(elQuantity.attr('max'));
+        // console.log('Max: '+max);
+        if (value < max) {
+            value = value + 1;
+        }
+        elQuantity.val(value);
+        var price = $(this).parent().parent().parent().find('.cart_price p').html();
+        var p = price.split(' ');
+        price = parseFloat(p[1]);
+        $(this).parent().parent().parent().find('.cart_total_price').html(p[0]+' '+(price*value).toFixed(2));
+        priceCalculate();
+        return false;
+    });
+    $('.cart_quantity_down').click(function(){
+        var elQuantity = $(this).parent().find('#CartsProductQuantity');
+        var value = parseInt(elQuantity.val());
+        var min = parseInt(elQuantity.attr('min'));
+        // console.log('Min: '+min);
+        if (value > min) {
+            value = value - 1;
+        }
+        elQuantity.val(value);
+        var price = $(this).parent().parent().parent().find('.cart_price p').html();
+        var p = price.split(' ');
+        price = parseFloat(p[1]);
+        $(this).parent().parent().parent().find('.cart_total_price').html(p[0]+' '+(price*value).toFixed(2));
+        priceCalculate();
+        return false;
+    });
+    $('.update').click(function(){
+        event.preventDefault();
+        var form = jQuery('<form>', {
+            'action': '/cartsProducts/edit',
+            'method': 'POST'
+        });
+        $('.cart_quantity_button input').each(function(){
+            form.append($(this));
+        });
+        form.submit();
+    });
+    function priceCalculate(){
+        var total = 0;
+        $('.cart_total_price').each(function(){
+            var s = $(this).html().split(' ');
+            total = total + parseFloat(s[1]);
+        });
+        $('.total_cart').html('R$ ' + total.toFixed(2));
+    }
+    priceCalculate();
 });
+
 
 angular.module('myApp', ['angular-growl', 'ngAnimate']);
 

@@ -83,10 +83,6 @@ class AppController extends Controller {
             $this->set('menuTop', $this->Section->find('all'));
         }
 
-        if ($this->Auth->loggedIn()) {
-            $this->loadModel('Cart');
-            $this->set('cart', $this->Cart->find('first', array('conditions' => array('user_id' => $this->Auth->user('id')))));
-        }
 	}
 
     public function isAuthorized($user = null) {

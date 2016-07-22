@@ -51,6 +51,19 @@ class OrdersController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+			$this->loadModel('CartsProduct');
+			$options = array(
+				'conditions' => array(
+					'Cart.user_id' => $this->Auth->user('id'),
+				),
+			);
+			$cartProducts = $this->CartsProduct->find('all', $options);
+			$this->request->data[$this->Order->name]['user_id'] = $this->Auth->user('id');
+			$this->request->data[$this->Order->name]['situation_id'] = '2';
+			$cartProducts = $this->Order->OrdersProduct->Product->CartsProduct->find('all');
+			$this->request->data[$this->OrdersProduct->name]['product_id'] = '';
+			$this->request->data[$this->OrdersProduct->name]['quantity'] = '';
+			$this->request->data[$this->OrdersProduct->name]['unit_price'] = '';
 			$this->Order->create();
 			if ($this->Order->save($this->request->data)) {
 				$this->Flash->success(__('O pedido foi salvo.'));
@@ -59,9 +72,13 @@ class OrdersController extends AppController {
 				$this->Flash->error(__('O pedido não pôde ser salvo. Por favor, tente novamente.'));
 			}
 		}
-		$products = $this->Order->Product->find('list');
-		$orders = $this->Order->Order->find('list');
-		$this->set(compact('products', 'orders'));
+		$this->loadModel('CartsProduct');
+		$options = array(
+			'conditions' => array(
+				'Cart.user_id' => $this->Auth->user('id'),
+			),
+		);
+		debug($cartProducts = $this->CartsProduct->find('all', $options));
 	}
 
 /**

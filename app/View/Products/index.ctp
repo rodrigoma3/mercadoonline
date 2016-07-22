@@ -45,21 +45,20 @@
 								<h4>De: R$ <strike><?php echo $product['Product']['price']; ?></strike></h4>
 								<h2>Por: R$ <?php echo $product['Product']['promotion_price']; ?></h2>
 								<p><?php echo $product['Product']['name'].' - '.$product['Manufacturer']['name']; ?></p>
-								<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Adicionar ao carinho</a>
+								<a href="" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Adicionar ao carinho</a>
 							</div>
 							<div class="product-overlay">
 								<div class="overlay-content text-center">
 									<div class="form form-group">
 										<?php echo $this->Form->create('CartsProduct', array('url' => '/cartsproducts/add')); ?>
 										<?php echo $this->Form->input('CartsProduct.product_id', array('type' => 'hidden', 'value' => $product['Product']['id'], 'class' => 'form-control', 'div' => false)); ?>
-										<?php echo $this->Form->input('CartsProduct.cart_id', array('type' => 'hidden', 'value' => (isset($cart)) ? $cart['Cart']['id'] : '', 'class' => 'form-control', 'div' => false)); ?>
 										<?php echo $this->Form->input('CartsProduct.quantity', array('label' => 'Quantidade', 'class' => 'form-control', 'min' => 1, 'max' => $product['Product']['stock'], 'value' => 1, 'div' => false)); ?>
 										<?php echo $this->Form->end(null); ?>
 									</div>
 									<h4>De: R$ <strike><?php echo $product['Product']['price']; ?></strike></h4>
 									<h2>Por: R$ <?php echo $product['Product']['promotion_price']; ?></h2>
 									<p><?php echo $product['Product']['name'].' - '.$product['Manufacturer']['name']; ?></p>
-									<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Adicionar ao carinho</a>
+									<a href="" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Adicionar ao carinho</a>
 								</div>
 							</div>
 						</div>

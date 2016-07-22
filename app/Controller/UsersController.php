@@ -128,6 +128,7 @@ class UsersController extends AppController {
 			throw new NotFoundException(__('Usuário inválido.'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
+			unset($this->request->data[$this->User->name]['username']);
 			if ($this->User->save($this->request->data)) {
 				$this->Flash->success(__('O usuário foi salvo.'));
 				return $this->redirect(array('action' => 'index'));

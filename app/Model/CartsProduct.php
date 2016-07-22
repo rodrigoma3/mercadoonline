@@ -68,4 +68,27 @@ class CartsProduct extends AppModel {
 			'order' => ''
 		)
 	);
+
+	public function listCartProducts($userid = null) {
+		$this->recursive = 1;
+		$options = array(
+			'joins' => array(
+				array(
+					'table' => $this->Product->Manufacturer->table,
+					'alias' => $this->Product->Manufacturer->alias,
+					'type' => 'LEFT',
+					'conditions' => array($this->Product->Manufacturer->alias.'.id = '.$this->Product->alias.'.manufacturer_id'),
+				),
+			),
+			'conditions' => array(
+				$this->Cart->alias.'.user_id' => $userid,
+			),
+			'fields' => array(
+				'CartsProduct.*',
+				'Product.*',
+				'Manufacturer.*'
+			),
+		);
+		return $this->find('all', $options);
+	}
 }

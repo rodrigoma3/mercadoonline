@@ -73,7 +73,11 @@
 										<!-- <li><a href="/orders/favorite/<?php echo $this->Session->read('Auth.User.id'); ?>"><i class="fa fa-star"></i> Favoritos</a></li>
 										<li><a href="/orders/index/<?php echo $this->Session->read('Auth.User.id'); ?>"><i class="fa fa-crosshairs"></i> Pedidos</a></li> -->
 									<?php } ?>
-									<li><a href="/carts/<?php echo (isset($cart)) ? $cart['Cart']['id'] : '' ; ?>"><i class="fa fa-shopping-cart"></i> Carrinho</a></li>
+									<?php if ($this->Session->read('Auth.User.role_id') != '3') { ?>
+										<li><a href="/admin/products"><i class="fa fa-cogs"></i> Administração</a></li>
+									<?php } else { ?>
+										<li><a href="/cartsProducts"><i class="fa fa-shopping-cart"></i> Carrinho</a></li>
+									<?php }?>
 									<?php if ($this->Session->read('Auth.User')) { ?>
 										<li><a href="/users/logout"><i class="fa fa-sign-out"></i> Sair</a></li>
 									<?php }  else { ?>
@@ -148,7 +152,7 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div ng-app="myApp" ng-controller="myCtrl" id="myAngular">
-							<div limit-messages="1" growl></div>
+							<div growl></div>
 						</div>
 						<?php echo $this->Flash->render(); ?>
 

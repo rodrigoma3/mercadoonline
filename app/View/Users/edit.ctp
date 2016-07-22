@@ -1,30 +1,17 @@
-<div class="users form">
+<div class="users form form-group">
 <?php echo $this->Form->create('User'); ?>
 	<fieldset>
-		<legend><?php echo __('Edit User'); ?></legend>
+		<legend><?php echo __('Editar Usuário'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
-		echo $this->Form->input('name');
-		echo $this->Form->input('username');
-		echo $this->Form->input('cpf');
-		echo $this->Form->input('email');
-		echo $this->Form->input('password');
-		echo $this->Form->input('role_id');
-		echo $this->Form->input('last_login');
-		echo $this->Form->input('isRemoved');
+		echo $this->Form->input('name', array('label' => 'Nome', 'class' => 'form-control'));
+		echo $this->Form->input('username', array('label' => 'Usuário', 'class' => 'form-control', 'disabled' => true));
+		echo $this->Form->input('cpf', array('label' => 'CPF', 'class' => 'form-control'));
+		echo $this->Form->input('email', array('label' => 'Email', 'class' => 'form-control'));
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('User.id')), array('confirm' => __('Are you sure you want to delete # %s?', $this->Form->value('User.id')))); ?></li>
-		<li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Addresses'), array('controller' => 'addresses', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Address'), array('controller' => 'addresses', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Orders'), array('controller' => 'orders', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Order'), array('controller' => 'orders', 'action' => 'add')); ?> </li>
-	</ul>
+	<?php echo $this->Form->end(array('label' => 'Salvar', 'div' => false)); ?>
+	<?php echo $this->Form->postLink(__('Deletar'), array('action' => 'delete', $this->Form->value('User.id')), array('confirm' => __('Are you sure you want to delete # %s?', $this->Form->value('User.id')))); ?>
 </div>
