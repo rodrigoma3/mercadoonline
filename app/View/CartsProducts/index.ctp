@@ -58,7 +58,7 @@
 						<li>Total <span class="total_cart"></span></li>
 					</ul>
 					<a class="btn btn-default update" href="">Atualizar</a>
-					<a class="btn btn-default check_out" href="/cartsProducts/checkout">Finalizar pedido</a>
+					<a class="btn btn-default check_out" href="/orders/add">Finalizar pedido</a>
 				</div>
 			</div>
 		</div>

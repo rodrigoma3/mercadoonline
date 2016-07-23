@@ -73,7 +73,7 @@
 										<!-- <li><a href="/orders/favorite/<?php echo $this->Session->read('Auth.User.id'); ?>"><i class="fa fa-star"></i> Favoritos</a></li>
 										<li><a href="/orders/index/<?php echo $this->Session->read('Auth.User.id'); ?>"><i class="fa fa-crosshairs"></i> Pedidos</a></li> -->
 									<?php } ?>
-									<?php if ($this->Session->read('Auth.User.role_id') != '3') { ?>
+									<?php if ($this->Session->read('Auth.User.role_id') != null && $this->Session->read('Auth.User.role_id') != '3') { ?>
 										<li><a href="/admin/products"><i class="fa fa-cogs"></i> Administração</a></li>
 									<?php } else { ?>
 										<li><a href="/cartsProducts"><i class="fa fa-shopping-cart"></i> Carrinho</a></li>

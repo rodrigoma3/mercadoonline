@@ -23,7 +23,7 @@ class Cart extends AppModel {
 	public $validate = array(
 		'user_id' => array(
 			'inList' => array(
-				'rule' => array('inList'),
+				'rule' => array('inList', array()),
 				'message' => 'Escolha uma das opções disponíveis',
 			),
 		),

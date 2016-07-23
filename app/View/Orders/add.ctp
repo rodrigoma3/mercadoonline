@@ -1,29 +1,17 @@
-<div class="orders form">
+<div class="orders form form-group">
 <?php echo $this->Form->create('Order'); ?>
 	<fieldset>
-		<legend><?php echo __('Add Order'); ?></legend>
+		<legend><?php echo __('Adicionar Pedido'); ?></legend>
 	<?php
-		echo $this->Form->input('user_id');
-		echo $this->Form->input('situation_id');
-		echo $this->Form->input('total_price');
-		echo $this->Form->input('deliver');
-		echo $this->Form->input('address_to_deliver');
-		echo $this->Form->input('deliver_on');
-		echo $this->Form->input('Product');
+		echo $this->Form->input('total_price', array('label' => 'Total', 'class' => 'form-control', 'disabled' => true));
+		echo $this->Form->checkbox('deliver').'&nbsp;'.$this->Form->label('deliver', 'Entregar');
+		echo $this->Form->input('address_to_deliver', array('label' => 'Endereço de Entrega', 'class' => 'form-control'));
+		echo $this->Form->label('deliver_on', 'Entregar em');
+		echo '<br/>';
+		echo $this->Form->datetime('deliver_on', 'DMY', '24', array('class' => 'form-control date'));
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Html->link(__('List Orders'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Situations'), array('controller' => 'situations', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Situation'), array('controller' => 'situations', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Products'), array('controller' => 'products', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Product'), array('controller' => 'products', 'action' => 'add')); ?> </li>
-	</ul>
+	<?php echo $this->Form->end(array('label' => 'Salvar', 'div' => false)); ?>
 </div>
